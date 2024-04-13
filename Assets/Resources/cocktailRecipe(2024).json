@@ -1,0 +1,766 @@
+{
+  "0": {
+    "Name": "푸스카페",
+    "EnglishName": "Pousse Cafe",
+    "Description": "식후 커피 다음에 나오는 작은 잔의 칵테일",
+    "Glassware": "스템드 리큐르 글라스",
+    "PreparationMethod": "플로트",
+    "Garnish": "없음",
+    "Ingredient": [
+      "그레나딘 시럽",
+      "크림 드 민트(그린)",
+      "브랜디"
+    ],
+    "IngredientQuantities": [
+      "1/3 part",
+      "1/3 part",
+      "1/3 part"
+    ]
+  },
+  "1": {
+    "Name": "맨해튼",
+    "EnglishName": "Manhattan",
+    "Description": "칵테일의 여왕이라는 별칭을 가지고 있는 칵테일",
+    "Glassware": "칵테일 글라스",
+    "PreparationMethod": "스터링",
+    "Garnish": "체리",
+    "Ingredient": [
+      "버번 위스키",
+      "스위트 베르무스",
+      "앙고스투라 비터"
+    ],
+    "IngredientQuantities": [
+      "1 1/2 oz",
+      "3/4 oz",
+      "1 dash"
+    ]
+  },
+  "2": {
+    "Name": "드라이 마티니",
+    "EnglishName": "Dry Martini",
+    "Description": "칵테일의 왕, 헤밍웨이가 사랑한 칵테일",
+    "Glassware": "칵테일 글라스",
+    "PreparationMethod": "스터링",
+    "Garnish": "그린 올리브",
+    "Ingredient": [
+      "드라이 진",
+      "드라이 베르무스"
+    ],
+    "IngredientQuantities": [
+      "2 oz",
+      "1/3 oz"
+    ]
+  },
+  "3": {
+    "Name": "올드 패션드",
+    "EnglishName": "Old Fashioned",
+    "Description": "클래식 칵테일의 정석",
+    "Glassware": "올드 패션드 글라스",
+    "PreparationMethod": "빌드",
+    "Garnish": "오렌지 슬라이스와 체리",
+    "Ingredient": [
+      "버번 위스키",
+      "파우더 설탕",
+      "앙고스투라 비터",
+      "소다 워터"
+    ],
+    "IngredientQuantities": [
+      "1 1/2 oz",
+      "1 tsp",
+      "1 dash",
+      "1/2 oz"
+    ]
+  },
+  "4": {
+    "Name": "브랜디 알렉산더",
+    "EnglishName": "Brandy Alexander",
+    "Description": "영국의 국왕과 덴마크 왕국의 장녀 알렉산드라와의 결혼을 기념해 바친 칵테일",
+    "Glassware": "칵테일 글라스",
+    "PreparationMethod": "셰이크",
+    "Garnish": "넛맥 파우더",
+    "Ingredient": [
+      "브랜디",
+      "크림 드 카카오(브라운)",
+      "우유"
+    ],
+    "IngredientQuantities": [
+      "3/4 oz",
+      "3/4 oz",
+      "3/4 oz"
+    ]
+  },
+  "5": {
+    "Name": "싱가폴 슬링",
+    "EnglishName": "Singapore Sling",
+    "Description": "싱가폴 래플스 호텔에서 고안한 저녁 노을을 표현한 칵테일",
+    "Glassware": "푸티드 필스너 글라스",
+    "PreparationMethod": "셰이크/ 빌드",
+    "Garnish": "오렌지 슬라이스와 체리",
+    "Ingredient": [
+      "드라이 진",
+      "레몬 쥬스",
+      "파우더 설탕",
+      "소다 워터",
+      "체리 브랜디"
+    ],
+    "IngredientQuantities": [
+      "1 1/2 oz",
+      "1/2 oz",
+      "1 tsp",
+      "Fill Up",
+      "1/2 oz On Top"
+    ]
+  },
+  "6": {
+    "Name": "블랙 러시안",
+    "EnglishName": "Black Russian",
+    "Description": "러시아를 대표하는 검정색 칵테일",
+    "Glassware": "올드 패션드 글라스",
+    "PreparationMethod": "빌드",
+    "Garnish": "없음",
+    "Ingredient": [
+      "보드카",
+      "커피 리큐어"
+    ],
+    "IngredientQuantities": [
+      "1 oz",
+      "1/2 oz"
+    ]
+  },
+  "7": {
+    "Name": "마가리타",
+    "EnglishName": "Margarita",
+    "Description": "데킬라를 가장 우아하게 마시는 방법",
+    "Glassware": "칵테일 글라스",
+    "PreparationMethod": "셰이크",
+    "Garnish": "소금 리밍",
+    "Ingredient": [
+      "데킬라",
+      "쿠엥트로 또는 트리플섹",
+      "라임 쥬스"
+    ],
+    "IngredientQuantities": [
+      "1 1/2 oz",
+      "1/2 oz",
+      "1/2 oz"
+    ]
+  },
+  "8": {
+    "Name": "러스티 네일",
+    "EnglishName": "Rusty Nail",
+    "Description": "'녹슨 못'이라는 이름의 영국 신사들이 즐겨 마시는 칵테일",
+    "Glassware": "올드 패션드 글라스",
+    "PreparationMethod": "빌드",
+    "Garnish": "없음",
+    "Ingredient": [
+      "스카치 위스키",
+      "드람부이"
+    ],
+    "IngredientQuantities": [
+      "1 oz",
+      "1/2 oz"
+    ]
+  },
+  "9": {
+    "Name": "위스키 사워",
+    "EnglishName": "Whiskey Sour",
+    "Description": "새콤한 위스키 칵테일",
+    "Glassware": "사워 글라스",
+    "PreparationMethod": "셰이크/ 빌드",
+    "Garnish": "레몬 슬라이스와 체리",
+    "Ingredient": [
+      "버번 위스키",
+      "레몬 쥬스",
+      "파우더 설탕",
+      "소다 워터"
+    ],
+    "IngredientQuantities": [
+      "1 1/2 oz",
+      "1/2 oz",
+      "1 tsp",
+      "1 oz On Top"
+    ]
+  },
+  "10": {
+    "Name": "뉴욕",
+    "EnglishName": "New York",
+    "Description": "뉴욕에 해가 떠오르는 모습을 한 칵테일",
+    "Glassware": "칵테일 글라스",
+    "PreparationMethod": "셰이크",
+    "Garnish": "레몬 필 트위스트",
+    "Ingredient": [
+      "버번 위스키",
+      "라임 쥬스",
+      "파우더 설탕",
+      "그레나딘 시럽"
+    ],
+    "IngredientQuantities": [
+      "1 1/2 oz",
+      "1/2 oz",
+      "1 tsp",
+      "1/2 tsp"
+    ]
+  },
+  "11": {
+    "Name": "다이키리",
+    "EnglishName": "Daiquiri",
+    "Description": "쿠바의 다이키리 광산에서 이름을 딴 칵테일",
+    "Glassware": "칵테일 글라스",
+    "PreparationMethod": "셰이크",
+    "Garnish": "없음",
+    "Ingredient": [
+      "라이트 럼",
+      "라임 쥬스",
+      "파우더 설탕"
+    ],
+    "IngredientQuantities": [
+      "1 3/4 oz",
+      "3/4 oz",
+      "1 tsp"
+    ]
+  },
+  "12": {
+    "Name": "B-52",
+    "EnglishName": "B-52",
+    "Description": "미군의 폭격기의 이름을 딴 칵테일",
+    "Glassware": "셰리 글라스",
+    "PreparationMethod": "플로트",
+    "Garnish": "없음",
+    "Ingredient": [
+      "커피 리큐어",
+      "베일리스 아이리쉬 크림",
+      "그랑 마니에르"
+    ],
+    "IngredientQuantities": [
+      "1/3 part",
+      "1/3 part",
+      "1/3 part"
+    ]
+  },
+  "13": {
+    "Name": "준벅",
+    "EnglishName": "June Bug",
+    "Description": "'6월의 벌레'라는 이름의 싱그러운 색감의 칵테일",
+    "Glassware": "콜린스 글라스",
+    "PreparationMethod": "셰이크",
+    "Garnish": "파인애플 웨지와 체리",
+    "Ingredient": [
+      "미도리(메론 리큐르)",
+      "코코넛 럼",
+      "바나나 리큐르",
+      "파인애플 쥬스",
+      "스윗 엔 사워 믹스"
+    ],
+    "IngredientQuantities": [
+      "1 oz",
+      "1/2 oz",
+      "1/2 oz",
+      "2 oz",
+      "2 oz"
+    ]
+  },
+  "14": {
+    "Name": "바카디 칵테일",
+    "EnglishName": "Bacardi Cocktail",
+    "Description": "바카디만을 위해 만들어진 칵테일",
+    "Glassware": "칵테일 글라스",
+    "PreparationMethod": "셰이크",
+    "Garnish": "없음",
+    "Ingredient": [
+      "바카디 화이트 럼",
+      "라임 쥬스",
+      "그레나딘 시럽"
+    ],
+    "IngredientQuantities": [
+      "1 3/4 oz",
+      "3/4 oz",
+      "1 tsp"
+    ]
+  },
+  "15": {
+    "Name": "쿠바 리브레",
+    "EnglishName": "Cuba Libre",
+    "Description": "쿠바의 독립을 축하하기 위한 칵테일",
+    "Glassware": "하이볼 글라스",
+    "PreparationMethod": "빌드",
+    "Garnish": "레몬 웨지",
+    "Ingredient": [
+      "라이트 럼",
+      "라임 쥬스",
+      "콜라"
+    ],
+    "IngredientQuantities": [
+      "1 1/2 oz",
+      "1/2 oz",
+      "Fill Up"
+    ]
+  },
+  "16": {
+    "Name": "그래스호퍼",
+    "EnglishName": "Grasshopper",
+    "Description": "여름의 초원 이미지를 한 칵테일",
+    "Glassware": "샴페인 글라스(소서형)",
+    "PreparationMethod": "셰이크",
+    "Garnish": "없음",
+    "Ingredient": [
+      "크림 드 민트(그린)",
+      "크림 드 카카오(화이트)",
+      "우유"
+    ],
+    "IngredientQuantities": [
+      "1 oz",
+      "1 oz",
+      "1 oz"
+    ]
+  },
+  "17": {
+    "Name": "시 브리즈",
+    "EnglishName": "Sea breeze",
+    "Description": "'바닷바람'이라는 이름을 가진 싱그러운 칵테일",
+    "Glassware": "하이볼 글라스",
+    "PreparationMethod": "빌드",
+    "Garnish": "라임 또는 레몬 웨지",
+    "Ingredient": [
+      "보드카",
+      "크렌베리 쥬스",
+      "자몽 쥬스"
+    ],
+    "IngredientQuantities": [
+      "1 1/2 oz",
+      "3 oz",
+      "1/2 oz"
+    ]
+  },
+  "18": {
+    "Name": "애플 마티니",
+    "EnglishName": "Apple Martini",
+    "Description": "마티니의 사과 버젼 칵테일",
+    "Glassware": "칵테일 글라스",
+    "PreparationMethod": "셰이크",
+    "Garnish": "사과 슬라이스",
+    "Ingredient": [
+      "보드카",
+      "애플퍼커",
+      "라임 쥬스"
+    ],
+    "IngredientQuantities": [
+      "1 oz",
+      "1 oz",
+      "1/2 oz"
+    ]
+  },
+  "19": {
+    "Name": "네그로니",
+    "EnglishName": "Negroni",
+    "Description": "이탈리아의 대표 식전 칵테일",
+    "Glassware": "올드 패션드 글라스",
+    "PreparationMethod": "빌드",
+    "Garnish": "레몬 필 트위스트",
+    "Ingredient": [
+      "드라이 진",
+      "스위트 베르무스",
+      "캄파리"
+    ],
+    "IngredientQuantities": [
+      "3/4 oz",
+      "3/4 oz",
+      "3/4 oz"
+    ]
+  },
+  "20": {
+    "Name": "롱 아일랜드 아이스 티",
+    "EnglishName": "Long Island Iced Tea",
+    "Description": "재료도 많이 들어가고 도수도 높아 '칵테일의 폭탄주'라는 별명이 붙은 칵테일",
+    "Glassware": "콜린스 글라스",
+    "PreparationMethod": "빌드",
+    "Garnish": "라임 또는 레몬 웨지",
+    "Ingredient": [
+      "드라이 진",
+      "보드카",
+      "라이트 럼",
+      "데킬라",
+      "트리플섹",
+      "스윗 엔 사워 믹스",
+      "콜라"
+    ],
+    "IngredientQuantities": [
+      "1/2 oz",
+      "1/2 oz",
+      "1/2 oz",
+      "1/2 oz",
+      "1/2 oz",
+      "1 1/2 oz",
+      "Fill Up"
+    ]
+  },
+  "21": {
+    "Name": "사이드 카",
+    "EnglishName": "Sidecar",
+    "Description": "브랜디 베이스의 대표적인 칵테일",
+    "Glassware": "칵테일 글라스",
+    "PreparationMethod": "셰이크",
+    "Garnish": "없음",
+    "Ingredient": [
+      "브랜디",
+      "트리플섹",
+      "레몬 쥬스"
+    ],
+    "IngredientQuantities": [
+      "1 oz",
+      "1 oz",
+      "1/4 oz"
+    ]
+  },
+  "22": {
+    "Name": "마이타이",
+    "EnglishName": "Mai-Tai",
+    "Description": "여름을 대표하는 트로피컬 칵테일",
+    "Glassware": "푸티드 필스너 글라스",
+    "PreparationMethod": "블렌드",
+    "Garnish": "파인애플 또는 오렌지 웨지와 체리",
+    "Ingredient": [
+      "라이트 럼",
+      "트리플섹",
+      "라임 쥬스",
+      "파인애플 쥬스",
+      "오렌지 쥬스",
+      "그레나딘 시럽"
+    ],
+    "IngredientQuantities": [
+      "1 1/4 oz",
+      "3/4 oz",
+      "1 oz",
+      "1 oz",
+      "1 oz",
+      "1/4 oz"
+    ]
+  },
+  "23": {
+    "Name": "피나콜라다",
+    "EnglishName": "Pina Colada",
+    "Description": "'파인애플이 무성한 언덕'이라는 의미의 여름 칵테일",
+    "Glassware": "푸티드 필스너 글라스",
+    "PreparationMethod": "블렌드",
+    "Garnish": "파인애플 웨지와 체리",
+    "Ingredient": [
+      "라이트 럼",
+      "피나콜라다 믹스",
+      "파인애플 쥬스"
+    ],
+    "IngredientQuantities": [
+      "1 1/4 oz",
+      "2 oz",
+      "2 oz"
+    ]
+  },
+  "24": {
+    "Name": "코스모폴리탄",
+    "EnglishName": "Cosmopolitan Cocktail",
+    "Description": "'세계인'이라는 의미의 도시적인 칵테일",
+    "Glassware": "칵테일 글라스",
+    "PreparationMethod": "셰이크",
+    "Garnish": "레몬 또는 라임 필 트위스트",
+    "Ingredient": [
+      "보드카",
+      "트리플섹",
+      "라임 쥬스",
+      "크렌베리 쥬스"
+    ],
+    "IngredientQuantities": [
+      "1 oz",
+      "1/2 oz",
+      "1/2 oz",
+      "1/2 oz"
+    ]
+  },
+  "25": {
+    "Name": "모스코 뮬",
+    "EnglishName": "Moscow Mule",
+    "Description": "구리잔에 마셔야 제맛인 칵테일",
+    "Glassware": "하이볼 글라스",
+    "PreparationMethod": "빌드",
+    "Garnish": "레몬 또는 라임 슬라이스",
+    "Ingredient": [
+      "보드카",
+      "라임 쥬스",
+      "진저에일"
+    ],
+    "IngredientQuantities": [
+      "1 1/2 oz",
+      "1/2 oz",
+      "Fill Up"
+    ]
+  },
+  "26": {
+    "Name": "애프리콧 칵테일",
+    "EnglishName": "Apricot Cocktail",
+    "Description": "상큼한 살구향을 느낄 수 있는 칵테일",
+    "Glassware": "칵테일 글라스",
+    "PreparationMethod": "셰이크",
+    "Garnish": "없음",
+    "Ingredient": [
+      "애프리콧 브랜디",
+      "드라이 진",
+      "레몬 쥬스",
+      "오렌지 쥬스"
+    ],
+    "IngredientQuantities": [
+      "1 1/2 oz",
+      "1 tsp",
+      "1/2 oz",
+      "1/2 oz"
+    ]
+  },
+  "27": {
+    "Name": "허니문 칵테일",
+    "EnglishName": "Honeymoon Cocktail",
+    "Description": "'신혼여행'이라는 이름의 달콤한 칵테일",
+    "Glassware": "칵테일 글라스",
+    "PreparationMethod": "셰이크",
+    "Garnish": "없음",
+    "Ingredient": [
+      "애플 브랜디",
+      "베네딕틴 DOM",
+      "트리플섹",
+      "레몬 쥬스"
+    ],
+    "IngredientQuantities": [
+      "3/4 oz",
+      "3/4 oz",
+      "1/4 oz",
+      "1/2 oz"
+    ]
+  },
+  "28": {
+    "Name": "블루 하와이안",
+    "EnglishName": "Blue Hawaiian",
+    "Description": "시원한 푸른빛 바다를 떠올리게 하는 여름 칵테일",
+    "Glassware": "푸티드 필스너 글라스",
+    "PreparationMethod": "블렌드",
+    "Garnish": "파인애플 웨지와 체리",
+    "Ingredient": [
+      "라이트 럼",
+      "블루 큐라소",
+      "코코넛 럼",
+      "파인애플 쥬스"
+    ],
+    "IngredientQuantities": [
+      "1 oz",
+      "1 oz",
+      "1 oz",
+      "2 1/2 oz"
+    ]
+  },
+  "29": {
+    "Name": "키르",
+    "EnglishName": "Kir",
+    "Description": "우아하고 고급스러운 이미지의 식전 칵테일",
+    "Glassware": "화이트 와인 글라스",
+    "PreparationMethod": "빌드",
+    "Garnish": "레몬 필 트위스트",
+    "Ingredient": [
+      "화이트 와인",
+      "크림 드 카시스"
+    ],
+    "IngredientQuantities": [
+      "3 oz",
+      "1/2 oz"
+    ]
+  },
+  "30": {
+    "Name": "데킬라 선라이즈",
+    "EnglishName": "Tequila Sunrise",
+    "Description": "해 뜰 때의 붉은 하늘을 연상시키는 칵테일",
+    "Glassware": "푸티드 필스너 글라스",
+    "PreparationMethod": "빌드/ 플로팅",
+    "Garnish": "없음",
+    "Ingredient": [
+      "데킬라",
+      "오렌지 쥬스",
+      "그레나딘 시럽"
+    ],
+    "IngredientQuantities": [
+      "1 1/2 oz",
+      "Fill Up",
+      "1/2 oz"
+    ]
+  },
+  "31": {
+    "Name": "힐링",
+    "EnglishName": "힐링(Healing)",
+    "Description": "몸에 좋은 8가지 한약재가 담긴 칵테일",
+    "Glassware": "칵테일 글라스",
+    "PreparationMethod": "셰이크",
+    "Garnish": "레몬 필 트위스트",
+    "Ingredient": [
+      "감흥로",
+      "베네딕틴 DOM",
+      "크림 드 카시스",
+      "스윗 엔 사워 믹스"
+    ],
+    "IngredientQuantities": [
+      "1 1/2 oz",
+      "1/3 oz",
+      "1/3 oz",
+      "1 oz"
+    ]
+  },
+  "32": {
+    "Name": "진도",
+    "EnglishName": "진도(Jindo)",
+    "Description": "홍옥색의 빛깔의 칵테일",
+    "Glassware": "칵테일 글라스",
+    "PreparationMethod": "셰이크",
+    "Garnish": "없음",
+    "Ingredient": [
+      "진도 홍주",
+      "크림 드 민트(화이트)",
+      "청포도 쥬스",
+      "라즈베리 시럽"
+    ],
+    "IngredientQuantities": [
+      "1 oz",
+      "1/2 oz",
+      "3/4 oz",
+      "1/2 oz"
+    ]
+  },
+  "33": {
+    "Name": "풋사랑",
+    "EnglishName": "풋사랑(Puppy Love)",
+    "Description": "능금아가씨의 풋풋하고 아련한 첫사랑",
+    "Glassware": "칵테일 글라스",
+    "PreparationMethod": "셰이크",
+    "Garnish": "사과 슬라이스",
+    "Ingredient": [
+      "안동 소주",
+      "트리플섹",
+      "애플퍼커",
+      "라임 쥬스"
+    ],
+    "IngredientQuantities": [
+      "1 oz",
+      "1/3 oz",
+      "1 oz",
+      "1/3 oz"
+    ]
+  },
+  "34": {
+    "Name": "금산",
+    "EnglishName": "금산(Geumsan)",
+    "Description": "현대인의 건강을 위한 칵테일",
+    "Glassware": "칵테일 글라스",
+    "PreparationMethod": "셰이크",
+    "Garnish": "없음",
+    "Ingredient": [
+      "금산 인삼주",
+      "커피 리큐어",
+      "애플퍼커",
+      "라임 쥬스"
+    ],
+    "IngredientQuantities": [
+      "1 1/2 oz",
+      "1/2 oz",
+      "1/2 oz",
+      "1 tsp"
+    ]
+  },
+  "35": {
+    "Name": "고창",
+    "EnglishName": "고창(Gochang)",
+    "Description": "산뜻한 복분자 칵테일",
+    "Glassware": "플루트 샴페인 글라스",
+    "PreparationMethod": "스터링",
+    "Garnish": "없음",
+    "Ingredient": [
+      "선운산 복분자주",
+      "트리플섹",
+      "스프라이트"
+    ],
+    "IngredientQuantities": [
+      "2 oz",
+      "1/2 oz",
+      "2 oz"
+    ]
+  },
+  "36": {
+    "Name": "진피즈",
+    "EnglishName": "Gin Fizz",
+    "Description": "여름철 인기가 많은 칵테일",
+    "Glassware": "하이볼 글라스",
+    "PreparationMethod": "셰이크/ 빌드",
+    "Garnish": "레몬 슬라이스",
+    "Ingredient": [
+      "드라이 진",
+      "레몬 쥬스",
+      "파우더 설탕",
+      "소다 워터"
+    ],
+    "IngredientQuantities": [
+      "1 1/2 oz",
+      "1/2 oz",
+      "1 tsp",
+      "Fill Up"
+    ]
+  },
+  "37": {
+    "Name": "레몬 스쿼시",
+    "EnglishName": "Fresh Lemon Squash",
+    "Description": "신선한 레몬즙이 들어가는 칵테일",
+    "Glassware": "하이볼 글라스",
+    "PreparationMethod": "빌드",
+    "Garnish": "레몬 슬라이스",
+    "Ingredient": [
+      "레몬 즙",
+      "파우더 설탕",
+      "소다 워터"
+    ],
+    "IngredientQuantities": [
+      "1/2 ea",
+      "2 tsp",
+      "Fill Up"
+    ]
+  },
+  "38": {
+    "Name": "버진 프루츠 펀치",
+    "EnglishName": "Virgin Fruit Punch",
+    "Description": "논알콜 트로피컬 칵테일",
+    "Glassware": "푸티드 필스너 글라스",
+    "PreparationMethod": "블렌드",
+    "Garnish": "파인애플 웨지와 체리",
+    "Ingredient": [
+      "오렌지 쥬스",
+      "파인애플 쥬스",
+      "크렌베리 쥬스",
+      "자몽 쥬스",
+      "레몬 쥬스",
+      "그레나딘 시럽"
+    ],
+    "IngredientQuantities": [
+      "1 oz",
+      "1 oz",
+      "1 oz",
+      "1 oz",
+      "1/2 oz",
+      "1/2 oz"
+    ]
+  },
+  "39": {
+    "Name": "불바디에",
+    "EnglishName": "Boulevardier",
+    "Description": "붉은색 달콤씁쓸한 칵테일",
+    "Glassware": "올드 패션드 글라스",
+    "PreparationMethod": "스터링",
+    "Garnish": "오렌지 필 트위스트",
+    "Ingredient": [
+      "버번 위스키",
+      "스위트 베르무스",
+      "캄파리"
+    ],
+    "IngredientQuantities": [
+      "1 oz",
+      "1 oz",
+      "1 oz"
+    ]
+  }
+}
