@@ -1,8 +1,6 @@
-using System;
-using Cocktailor;
 using UnityEngine;
 
-namespace UI
+namespace Cocktailor
 {
     public class CocktailIconManager : MonoBehaviour
     {
@@ -23,9 +21,10 @@ namespace UI
                 Debug.LogError("Index out of bounds while accessing sprite array.");
                 return null;
             }
+
             return iconSprites[index];
         }
-        
+
         public Sprite GetSmallMarkIconAtIndexOf(int index)
         {
             if (index < 0 || index >= smallMarkIcon.Length)
@@ -33,6 +32,7 @@ namespace UI
                 Debug.LogError("Index out of bounds while accessing small mark icon array.");
                 return null;
             }
+
             return smallMarkIcon[index];
         }
     }

@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DeactiveSelf : MonoBehaviour
+namespace Cocktailor
 {
-    public void DeactivateSelf()
+    public class DeactiveSelf : MonoBehaviour
     {
-        gameObject.SetActive(false);
+        public void DeactivateSelf()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

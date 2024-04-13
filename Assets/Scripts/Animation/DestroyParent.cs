@@ -1,12 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyParent : MonoBehaviour
+namespace Cocktailor
 {
-    public GameObject prnt;
-    public void DestroyP()
+    public class DestroyParent : MonoBehaviour
     {
-        Destroy(prnt);
+        public GameObject prnt;
+
+        public void DestroyP()
+        {
+            Destroy(prnt);
+        }
     }
 }

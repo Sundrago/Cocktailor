@@ -1,46 +1,48 @@
-using Cocktailor.Utility;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.iOS;
 
-public class CreditButtonController : MonoBehaviour
+namespace Cocktailor
 {
-    [SerializeField] private GameObject creditButton;
-    [SerializeField] private GameObject creditImage;
-    
-    private Animator creditAnimator;
-    private bool isCreditsVisible = false;
-
-    private void Awake()
+    public class CreditButtonController : MonoBehaviour
     {
-        creditAnimator = creditImage?.GetComponent<Animator>();
-    }
+        [SerializeField] private GameObject creditButton;
+        [SerializeField] private GameObject creditImage;
 
-    public void ToggleCreditsVisibility()
-    {
-        isCreditsVisible = !isCreditsVisible;
-        UpdateCreditVisibility(isCreditsVisible);
-    }
+        private Animator creditAnimator;
+        private bool isCreditsVisible;
 
-    private void UpdateCreditVisibility(bool show)
-    {
-        if (creditAnimator == null) return;
+        private void Awake()
+        {
+            creditAnimator = creditImage?.GetComponent<Animator>();
+        }
 
-        creditImage.gameObject.SetActive(show);
-        creditAnimator.SetTrigger(show ? "Show" : "Hide");
-    }
+        public void ToggleCreditsVisibility()
+        {
+            isCreditsVisible = !isCreditsVisible;
+            UpdateCreditVisibility(isCreditsVisible);
+        }
 
-    public void RequestStoreReview()
-    {
+        private void UpdateCreditVisibility(bool show)
+        {
+            if (creditAnimator == null) return;
+
+            creditImage.gameObject.SetActive(show);
+            creditAnimator.SetTrigger(show ? "Show" : "Hide");
+        }
+
+        public void RequestStoreReview()
+        {
 #if UNITY_ANDROID
         OpenURL(PrivateData.PlayStoreURL);
 #elif UNITY_IOS
-        UnityEngine.iOS.Device.RequestStoreReview();
-        Application.OpenURL(PrivateData.AppStoreURL);
+            Device.RequestStoreReview();
+            Application.OpenURL(PrivateData.AppStoreURL);
 #endif
-    }
-    
-    public void OpenInstagram()
-    {
-        Application.OpenURL(PrivateData.InstagramURL);
+        }
+
+        public void OpenInstagram()
+        {
+            Application.OpenURL(PrivateData.InstagramURL);
+        }
     }
 }

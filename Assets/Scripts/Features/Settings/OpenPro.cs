@@ -1,35 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
-using Cocktailor.Utility;
-using Features.RecipeViewer;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class OpenPro : MonoBehaviour
+namespace Cocktailor
 {
-    [SerializeField] private Dropdown dropdown;
-    [FormerlySerializedAs("settings")] [SerializeField] private SettingsManager settingsManager;
-    // [FormerlySerializedAs("main")] [SerializeField] private RecipeViewerManager recipeViewerManager;
-
-    public void OpenProPanelIfNotSubscribed()
+    public class OpenPro : MonoBehaviour
     {
-        if (PlayerData.HasSubscribed()) {
-            gameObject.SetActive(false);
-            return;
+        [SerializeField] private Dropdown dropdown;
+
+        [FormerlySerializedAs("settings")] [SerializeField]
+        private SettingsManager settingsManager;
+        // [FormerlySerializedAs("main")] [SerializeField] private RecipeViewerManager recipeViewerManager;
+
+        public void OpenProPanelIfNotSubscribed()
+        {
+            if (PlayerData.HasSubscribed())
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
+            dropdown.Hide();
+            settingsManager.OpenCocktailorPro();
         }
 
-        dropdown.Hide();
-        settingsManager.OpenCocktailorPro();
-    }
+        public void OpenProSettingsWhenLiteClicked()
+        {
+            settingsManager.OpenCocktailorPro();
+        }
 
-    public void OpenProSettingsWhenLiteClicked()
-    {
-        settingsManager.OpenCocktailorPro();
-    }
-
-    public void ShowProSubscriptionMessage()
-    {
-        PopupMessageManager.Instance.ShowMsg("칵테일러 Pro를 이용중입니다.");
+        public void ShowProSubscriptionMessage()
+        {
+            PopupMessageManager.Instance.ShowMsg("칵테일러 Pro를 이용중입니다.");
+        }
     }
 }

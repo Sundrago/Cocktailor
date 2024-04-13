@@ -1,22 +1,21 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Features.Quiz
+namespace Cocktailor
 {
     public static class QuizJudge
     {
         public static int GetQuizResult(QuizCardUIManager UIManager, UserAnswer userAnswer,
             CocktailRecipe currentRecipe, int ingredientCount)
         {
-            int scoreDeduction = 0;
+            var scoreDeduction = 0;
             scoreDeduction += JudgeGlassware(UIManager, userAnswer, currentRecipe);
             scoreDeduction += JudgeMethod(UIManager, userAnswer, currentRecipe);
             scoreDeduction += JudgeGarnish(UIManager, userAnswer, currentRecipe);
             scoreDeduction += JudgeIngredienetsQuantities(UIManager, userAnswer, currentRecipe, ingredientCount);
 
-            int maxScore = GetMaxScore(currentRecipe);
-            int finalScore = Mathf.RoundToInt((maxScore + scoreDeduction) / (float)maxScore * 100);
+            var maxScore = GetMaxScore(currentRecipe);
+            var finalScore = Mathf.RoundToInt((maxScore + scoreDeduction) / (float)maxScore * 100);
             return finalScore;
         }
 
@@ -28,14 +27,14 @@ namespace Features.Quiz
         private static int JudgeGlassware(QuizCardUIManager UIManager, UserAnswer userAnswer,
             CocktailRecipe CurrentRecipe)
         {
-            bool isCorrect = userAnswer.Glassware == CurrentRecipe.Glassware;
+            var isCorrect = userAnswer.Glassware == CurrentRecipe.Glassware;
             UIManager.SetGlasswareScore(isCorrect);
             return isCorrect ? 0 : -3;
         }
 
         private static int JudgeMethod(QuizCardUIManager UIManager, UserAnswer userAnswer, CocktailRecipe CurrentRecipe)
         {
-            bool isCorrect = userAnswer.PreparationMethod == CurrentRecipe.PreparationMethod;
+            var isCorrect = userAnswer.PreparationMethod == CurrentRecipe.PreparationMethod;
             UIManager.SetMethodScore(isCorrect);
             return isCorrect ? 0 : -3;
         }
@@ -43,7 +42,7 @@ namespace Features.Quiz
         private static int JudgeGarnish(QuizCardUIManager UIManager, UserAnswer userAnswer,
             CocktailRecipe CurrentRecipe)
         {
-            bool isCorrect = CurrentRecipe.Garnish.Contains(userAnswer.Garnish);
+            var isCorrect = CurrentRecipe.Garnish.Contains(userAnswer.Garnish);
             UIManager.SetGarnishScore(isCorrect);
             return isCorrect ? 0 : -2;
         }
@@ -51,26 +50,22 @@ namespace Features.Quiz
         private static int JudgeIngredienetsQuantities(QuizCardUIManager UIManager, UserAnswer userAnswer,
             CocktailRecipe currentRecipe, int ingredientCount)
         {
-            int score = 0;
-            List<QuizCardUIManager.IngredientAssessment> assessments =
+            var score = 0;
+            var assessments =
                 new List<QuizCardUIManager.IngredientAssessment>();
-            List<int> correctIdxs = new List<int>();
+            var correctIdxs = new List<int>();
 
-            for (int i = 0; i < ingredientCount; i++)
+            for (var i = 0; i < ingredientCount; i++)
             {
                 assessments.Add(
                     GetIngredientAssessment(userAnswer.Ingredients[i], currentRecipe, userAnswer.Amounts[i]));
                 if (assessments[i] == QuizCardUIManager.IngredientAssessment.Correct)
-                {
                     correctIdxs.Add(i);
-                }
                 else
-                {
                     score -= 1;
-                }
             }
 
-            int needIngredientsCount = currentRecipe.Ingredient.Count - correctIdxs.Count;
+            var needIngredientsCount = currentRecipe.Ingredient.Count - correctIdxs.Count;
             score -= needIngredientsCount;
             UIManager.UpdateIngredientScore(assessments);
             UIManager.SetNeedMoreIngredientText(needIngredientsCount);
@@ -81,28 +76,19 @@ namespace Features.Quiz
         private static QuizCardUIManager.IngredientAssessment GetIngredientAssessment(string userIngredient,
             CocktailRecipe currentRecipe, string userAnswerAmount)
         {
-            int ingredientIndex = GetIngredientIndex(userIngredient, currentRecipe);
+            var ingredientIndex = GetIngredientIndex(userIngredient, currentRecipe);
             if (ingredientIndex == -1)
-            {
                 return QuizCardUIManager.IngredientAssessment.BothIncorrect;
-            }
-            else
-            {
-                return IsAmountCorrect(ingredientIndex, userAnswerAmount, currentRecipe)
-                    ? QuizCardUIManager.IngredientAssessment.Correct
-                    : QuizCardUIManager.IngredientAssessment.IncorrectQuantity;
-            }
+            return IsAmountCorrect(ingredientIndex, userAnswerAmount, currentRecipe)
+                ? QuizCardUIManager.IngredientAssessment.Correct
+                : QuizCardUIManager.IngredientAssessment.IncorrectQuantity;
         }
 
         private static int GetIngredientIndex(string userIngredient, CocktailRecipe currentRecipe)
         {
-            for (int i = 0; i < currentRecipe.Ingredient.Count; i++)
-            {
+            for (var i = 0; i < currentRecipe.Ingredient.Count; i++)
                 if (currentRecipe.Ingredient[i].Contains(userIngredient))
-                {
                     return i;
-                }
-            }
 
             return -1;
         }

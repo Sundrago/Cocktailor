@@ -3,7 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace Cocktailor
 {
     public enum PopupType
     {
@@ -13,8 +13,6 @@ namespace UI
 
     public class PopupManager : MonoBehaviour
     {
-        public static PopupManager Instance { get; private set; }
-
         [SerializeField] private GameObject confirmButton;
         [SerializeField] private GameObject yesButton;
         [SerializeField] private GameObject noButton;
@@ -24,6 +22,7 @@ namespace UI
         [SerializeField] private Image backGroundImage;
 
         private Action confirmAction, cancelAction;
+        public static PopupManager Instance { get; private set; }
 
         private void Awake()
         {

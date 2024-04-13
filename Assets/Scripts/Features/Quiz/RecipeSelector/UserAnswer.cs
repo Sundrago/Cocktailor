@@ -1,22 +1,21 @@
-using System;
 using System.Linq;
 
-namespace Features.Quiz
+namespace Cocktailor
 {
-        public class UserAnswer
+    public class UserAnswer
     {
+        public int GlasswareIndex = -1, GarnishIndex = -1, MethodIndex = -1;
         public string Glassware { get; private set; }
-        public string Garnish { get;private set; }
+        public string Garnish { get; private set; }
         public string PreparationMethod { get; private set; }
-        public string[] Ingredients { get; private set; } = Enumerable.Repeat((""), 7).ToArray();
-        public string[] Amounts { get; private set; } = Enumerable.Repeat((""), 7).ToArray();
+        public string[] Ingredients { get; } = Enumerable.Repeat("", 7).ToArray();
+        public string[] Amounts { get; } = Enumerable.Repeat("", 7).ToArray();
+        public (int, int)[] IngredientIndex { get; } = Enumerable.Repeat((-1, -1), 7).ToArray();
+        public (int, int)[] AmountIndex { get; } = Enumerable.Repeat((-1, -1), 7).ToArray();
 
-        public int GlasswareIndex = -1, GarnishIndex =-1, MethodIndex =-1;
-        public (int, int)[] IngredientIndex { get; private set; } = Enumerable.Repeat((-1, -1), 7).ToArray();
-        public (int, int)[] AmountIndex { get; private set; } = Enumerable.Repeat((-1, -1), 7).ToArray();
-        
-        
-        public void UpdateAnswer(RecipeType recipeType, string selectedAnswer, int firstChoiceIndex, int secondChoiceIndex = -1, int ingredientIndex = -1)
+
+        public void UpdateAnswer(RecipeType recipeType, string selectedAnswer, int firstChoiceIndex,
+            int secondChoiceIndex = -1, int ingredientIndex = -1)
         {
             switch (recipeType)
             {
@@ -45,15 +44,15 @@ namespace Features.Quiz
 
         public void RemoveIngredientAt(int index)
         {
-            int maxIndex = Ingredients.Length;
-            for (int i = index; i < maxIndex - 1; i++)
+            var maxIndex = Ingredients.Length;
+            for (var i = index; i < maxIndex - 1; i++)
             {
-                Ingredients[i] = String.Copy(Ingredients[i + 1]);
-                Amounts[i] = String.Copy(Amounts[i + 1]);
+                Ingredients[i] = string.Copy(Ingredients[i + 1]);
+                Amounts[i] = string.Copy(Amounts[i + 1]);
             }
 
             Ingredients[maxIndex - 1] = string.Empty;
-            Amounts[maxIndex-1] = string.Empty;
+            Amounts[maxIndex - 1] = string.Empty;
         }
     }
 }

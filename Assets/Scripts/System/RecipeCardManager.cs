@@ -1,14 +1,13 @@
-using UI;
+using System;
 using UnityEngine;
 
-namespace System
+namespace Cocktailor
 {
     public class RecipeCardManager : MonoBehaviour
     {
-        public static RecipeCardManager Instance { get; private set; }
-
         [SerializeField] private RecipeCardController recipeCardObjectPrefab;
         [SerializeField] private Transform panel_holder;
+        public static RecipeCardManager Instance { get; private set; }
 
         public RecipeCardController CurrentRecipeCard { get; private set; }
         // private Action<int, bool> OnOXMarkButtonClicked;
@@ -44,13 +43,6 @@ namespace System
 
     public class CardInfo
     {
-        public int RecipeIndex { get; private set; }
-        public int CardIndex { get; private set; }
-        public int CardMaxIndex { get; private set; }
-        public CardAnimationType AnimationType { get; }
-        public bool IsMemoryTabsAllOpen { get; }
-        public Action<SwipeEventType> OnCardSwipeEvent { get; }
-
         public CardInfo(
             int recipeIndex,
             int cardIndex = 1,
@@ -66,5 +58,12 @@ namespace System
             IsMemoryTabsAllOpen = isMemoryTabsAllOpen;
             OnCardSwipeEvent = onCardSwipe;
         }
+
+        public int RecipeIndex { get; private set; }
+        public int CardIndex { get; private set; }
+        public int CardMaxIndex { get; private set; }
+        public CardAnimationType AnimationType { get; }
+        public bool IsMemoryTabsAllOpen { get; }
+        public Action<SwipeEventType> OnCardSwipeEvent { get; }
     }
 }

@@ -1,43 +1,33 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cocktailor;
-using Cocktailor.Utility;
-using Features.Quize;
-using UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Features.RecipeViewer
+namespace Cocktailor
 {
     /// <summary>
-    /// Manages the recipe viewer feature.
-    /// </summary>x
+    ///     Manages the recipe viewer feature.
+    /// </summary>
+    /// x
     public class RecipeViewerManager : MonoBehaviour
     {
-        [Header("Managers and Controllers")] 
-        [SerializeField] private RecipeListManager recipeListManager;
+        [Header("Managers and Controllers")] [SerializeField]
+        private RecipeListManager recipeListManager;
+
         [SerializeField] private SfxManager sfxManager;
         [SerializeField] private SettingsManager settingsPanel;
 
-        [Header("UI Components")] 
-        [SerializeField] private Dropdown rangeSelectorDropdown;
+        [Header("UI Components")] [SerializeField]
+        private Dropdown rangeSelectorDropdown;
+
         [SerializeField] private ScrollRect selectionScrollRect;
+        public bool isInQuizMode;
 
         private RecipeCardController currentRecipeCard;
-        private List<int> recipeSelectionList = new(40);
         private int currentSelectionIndex, totalRecipeCount;
         private bool isMenuVisible, isInHideTabMode;
-        public bool isInQuizMode;
-        
-        private enum SelectionDropdownValue 
-        {
-            All = 0,
-            NotMemorized = 1,
-            Memorized = 2
-        }
-        
+        private List<int> recipeSelectionList = new(40);
+
         private void Start()
         {
             totalRecipeCount = CocktailRecipeManger.GetTotalRecipeCount();
@@ -46,14 +36,14 @@ namespace Features.RecipeViewer
             currentSelectionIndex = 0;
             InitiateSelection();
             OpenCard(currentSelectionIndex, CardAnimationType.InFromLeft);
-            
+
             settingsPanel.Start();
         }
-        
+
         public void InitiateSelection()
         {
-            SelectionDropdownValue mode = (SelectionDropdownValue)rangeSelectorDropdown.value;
-            
+            var mode = (SelectionDropdownValue)rangeSelectorDropdown.value;
+
             switch (mode)
             {
                 case SelectionDropdownValue.NotMemorized when PlayerData.NotMemorizedRecipes.Count == 0:
@@ -65,7 +55,7 @@ namespace Features.RecipeViewer
                     mode = SelectionDropdownValue.All;
                     break;
             }
-            
+
             switch (mode)
             {
                 case SelectionDropdownValue.NotMemorized:
@@ -83,28 +73,26 @@ namespace Features.RecipeViewer
             recipeListManager.SetupSelections(recipeSelectionList, OpenCardFromSelection);
             selectionScrollRect.verticalNormalizedPosition = 1f - currentSelectionIndex / (float)maxIdx;
         }
-        
+
         private List<int> GetRecipesSelectionFromState(MemorizedState state)
         {
             var selection = new List<int>();
             for (var i = 0; i < totalRecipeCount; i++)
-            {
                 if (PlayerData.GetUserState(i) == state)
                     selection.Add(i);
-            }
             return selection;
         }
 
         private void OpenCardFromSelection(int selectionIndex)
         {
-            this.currentSelectionIndex = selectionIndex;
+            currentSelectionIndex = selectionIndex;
 
-            if (this.currentSelectionIndex <= GetStageIdxIndex(selectionIndex))
+            if (currentSelectionIndex <= GetStageIdxIndex(selectionIndex))
             {
                 currentRecipeCard.panelAnimControl.PlayAnim(CardAnimationType.OutFromRight);
                 OpenCard(selectionIndex, CardAnimationType.InFromLeft);
             }
-            else if (this.currentSelectionIndex > GetStageIdxIndex(selectionIndex))
+            else if (currentSelectionIndex > GetStageIdxIndex(selectionIndex))
             {
                 currentRecipeCard.panelAnimControl.PlayAnim(CardAnimationType.OutFromLeft);
                 OpenCard(selectionIndex, CardAnimationType.InFromRight);
@@ -142,7 +130,7 @@ namespace Features.RecipeViewer
             // gameObject.GetComponent<TutorialControl>().UpdateStatus(1);
 
             var cardInfo = new CardInfo(
-                recipeSelectionList[this.currentSelectionIndex],
+                recipeSelectionList[currentSelectionIndex],
                 selectionIndex,
                 recipeSelectionList.Count,
                 anim,
@@ -162,15 +150,22 @@ namespace Features.RecipeViewer
                     break;
                 case SwipeEventType.SwipeRight:
                     HandleSwipeRight();
-                    break;        
+                    break;
             }
         }
-        
+
         public void ToggleTabVisibility(bool show)
         {
             isInHideTabMode = !show;
             if (currentRecipeCard != null)
                 currentRecipeCard.ShowAllTabs(show);
+        }
+
+        private enum SelectionDropdownValue
+        {
+            All = 0,
+            NotMemorized = 1,
+            Memorized = 2
         }
     }
 }

@@ -1,11 +1,13 @@
-using System;
 using UnityEngine;
 
-namespace UI
+namespace Cocktailor
 {
     public class MenuUIManager : MonoBehaviour
     {
-        public static MenuUIManager Instance { get; private set; }
+        private static readonly int Menu = Animator.StringToHash("menu");
+        private static readonly int Hide = Animator.StringToHash("hide");
+        private static readonly int Back = Animator.StringToHash("back");
+        private static readonly int Show = Animator.StringToHash("show");
 
         [SerializeField] private Animator menuPanelAnimator;
         [SerializeField] private Animator menuButtonAnimator;
@@ -13,11 +15,7 @@ namespace UI
         [SerializeField] private AdManager adManager;
 
         private bool isMenuVisible;
-
-        private static readonly int Menu = Animator.StringToHash("menu");
-        private static readonly int Hide = Animator.StringToHash("hide");
-        private static readonly int Back = Animator.StringToHash("back");
-        private static readonly int Show = Animator.StringToHash("show");
+        public static MenuUIManager Instance { get; private set; }
 
         private void Awake()
         {

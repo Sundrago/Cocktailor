@@ -1,11 +1,15 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Features.Quiz
+namespace Cocktailor
 {
-    public enum RcpAmtButtonState { DeActive, PressToAdd, Active}
+    public enum RcpAmtButtonState
+    {
+        DeActive,
+        PressToAdd,
+        Active
+    }
+
     public class IngredientButtonUI : MonoBehaviour
     {
         [SerializeField] private Text addButtonText;
@@ -13,7 +17,7 @@ namespace Features.Quiz
         [SerializeField] private Text quantityText;
         [SerializeField] private Image iconImage;
         [SerializeField] private Animator animator;
-        
+
         public void SetButtonState(RcpAmtButtonState state)
         {
             gameObject.SetActive(state != RcpAmtButtonState.DeActive);
@@ -29,6 +33,7 @@ namespace Features.Quiz
             quantityText.text = "oz";
             SetButtonState(RcpAmtButtonState.Active);
         }
+
         public void SetIngredientNameText(string text)
         {
             ingredientNameText.text = text;
@@ -41,13 +46,13 @@ namespace Features.Quiz
 
         public void SetIngredientAndQuantity(string ingredient, string quantity)
         {
-            ingredientNameText.text = string.IsNullOrEmpty(ingredient)? "재료 선택" : ingredient;
-            quantityText.text = string.IsNullOrEmpty(quantity)? "oz" : quantity;
+            ingredientNameText.text = string.IsNullOrEmpty(ingredient) ? "재료 선택" : ingredient;
+            quantityText.text = string.IsNullOrEmpty(quantity) ? "oz" : quantity;
         }
 
         public void SetIconImage(Sprite sprite)
         {
-            if(iconImage.sprite != sprite)
+            if (iconImage.sprite != sprite)
                 iconImage.sprite = sprite;
         }
 

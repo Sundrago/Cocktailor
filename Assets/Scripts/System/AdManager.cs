@@ -1,135 +1,135 @@
 using System;
-using System.Collections.Generic;
-using Cocktailor.Utility;
-using Features.Quiz;
-using Features.Quize;
-using Features.RecipeViewer;
-using UnityEngine;
 using GoogleMobileAds.Api;
-using GoogleMobileAds.Common;
+using UnityEngine;
 using UnityEngine.Serialization;
 
-public class AdManager : MonoBehaviour
+namespace Cocktailor
 {
-    [FormerlySerializedAs("mainControl")] [SerializeField] private RecipeViewerManager recipeViewerManager;
-    [SerializeField] private QuizManager quizManager;
-    
-    private RewardedAd rewardedAd;
-    private InterstitialAd interstitial;
-    private RewardedInterstitialAd rewardedInterstitialAd;
-    
-    private AdType adType;
-    private int quizIndex;
-    private float lastAdShownTime;
-
-    private Action onAdWatch;
-    
-    public enum AdType
+    public class AdManager : MonoBehaviour
     {
-        InterstitialAd, RewardedAd
-    }
-    
-    void Start()
-    {
-        MobileAds.Initialize(initStatus => { });
-        LoadInterstitialAd();
-        LoadRewardAds();
-        
-        lastAdShownTime = Time.time;
-    }
-
-    public void ShowAds(AdType adType, Action onAdWatch)
-    {
-        this.onAdWatch = onAdWatch;
-        
-        if (adType == AdType.RewardedAd)
+        public enum AdType
         {
-            if (this.rewardedAd.IsLoaded())
+            InterstitialAd,
+            RewardedAd
+        }
+
+        [FormerlySerializedAs("mainControl")] [SerializeField]
+        private RecipeViewerManager recipeViewerManager;
+
+        [SerializeField] private QuizManager quizManager;
+
+        private AdType adType;
+        private InterstitialAd interstitial;
+        private float lastAdShownTime;
+
+        private Action onAdWatch;
+        private int quizIndex;
+
+        private RewardedAd rewardedAd;
+        private RewardedInterstitialAd rewardedInterstitialAd;
+
+        private void Start()
+        {
+            MobileAds.Initialize(initStatus => { });
+            LoadInterstitialAd();
+            LoadRewardAds();
+
+            lastAdShownTime = Time.time;
+        }
+
+        public void ShowAds(AdType adType, Action onAdWatch)
+        {
+            this.onAdWatch = onAdWatch;
+
+            if (adType == AdType.RewardedAd)
             {
-                this.rewardedAd.Show();
+                if (rewardedAd.IsLoaded())
+                {
+                    rewardedAd.Show();
+                }
+                else
+                {
+                    OnRewardFinished();
+                    LoadRewardAds();
+                }
             }
-            else
+            else if (adType == AdType.InterstitialAd)
             {
-                OnRewardFinished();
-                LoadRewardAds();
+                if (interstitial.IsLoaded())
+                {
+                    interstitial.Show();
+                }
+                else
+                {
+                    OnRewardFinished();
+                    LoadInterstitialAd();
+                }
             }
         }
-        else if (adType == AdType.InterstitialAd)
+
+        private void OnRewardFinished()
         {
-            if (this.interstitial.IsLoaded())
-            {
-                this.interstitial.Show();
-            }
-            else
-            {
-                OnRewardFinished();
-                LoadInterstitialAd();
-            }
+            onAdWatch?.Invoke();
+            onAdWatch = null;
         }
-    }
-    
-    private void OnRewardFinished()
-    {
-        onAdWatch?.Invoke();
-        onAdWatch = null;
-    }
 
-    private void LoadRewardAds(){
-
-        #if UNITY_ANDROID
+        private void LoadRewardAds()
+        {
+#if UNITY_ANDROID
             string adUnitId = PrivateData.AndroidRewardUnitID;
-        #elif UNITY_IPHONE
-            string adUnitId = PrivateData.IphoneRewardUnitID;
-        #else
+#elif UNITY_IPHONE
+            var adUnitId = PrivateData.IphoneRewardUnitID;
+#else
             string adUnitId = "unexpected_platform";
-        #endif
-        
-        this.rewardedAd = new RewardedAd(adUnitId);
-        this.rewardedAd.OnAdFailedToShow += HandleRewardedAdFailedToShow;
-        this.rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;
-        AdRequest request = new AdRequest.Builder().Build();
-        this.rewardedAd.LoadAd(request);
-    }
+#endif
 
-    public void HandleRewardedAdFailedToShow(object sender, AdErrorEventArgs args)
-    {
-        OnRewardFinished();
-        LoadRewardAds();
-    }
+            rewardedAd = new RewardedAd(adUnitId);
+            rewardedAd.OnAdFailedToShow += HandleRewardedAdFailedToShow;
+            rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;
+            var request = new AdRequest.Builder().Build();
+            rewardedAd.LoadAd(request);
+        }
 
-    public void HandleUserEarnedReward(object sender, Reward args)
-    {
-        OnRewardFinished();
-        LoadRewardAds();
-    }
+        public void HandleRewardedAdFailedToShow(object sender, AdErrorEventArgs args)
+        {
+            OnRewardFinished();
+            LoadRewardAds();
+        }
 
-    private void LoadInterstitialAd()
-    {
-        #if UNITY_ANDROID
+        public void HandleUserEarnedReward(object sender, Reward args)
+        {
+            OnRewardFinished();
+            LoadRewardAds();
+        }
+
+        private void LoadInterstitialAd()
+        {
+#if UNITY_ANDROID
             string adUnitId = PrivateData.AndroidInterstitialUnitID;
-        #elif UNITY_IPHONE
-            string adUnitId = PrivateData.IphoneInterstitialUnitID;
-        #else
+#elif UNITY_IPHONE
+            var adUnitId = PrivateData.IphoneInterstitialUnitID;
+#else
             string adUnitId = "unexpected_platform";
-        #endif
-        
-        this.interstitial = new InterstitialAd(adUnitId);
-        this.interstitial.OnAdFailedToShow += HandleInterstitialFailedToShow;
-        this.interstitial.OnAdClosed += HandleOnAdClosed;
+#endif
 
-        AdRequest request = new AdRequest.Builder().Build();
-        this.interstitial.LoadAd(request);
-    }
+            interstitial = new InterstitialAd(adUnitId);
+            interstitial.OnAdFailedToShow += HandleInterstitialFailedToShow;
+            interstitial.OnAdClosed += HandleOnAdClosed;
 
-    private void HandleInterstitialFailedToShow(object sender, AdErrorEventArgs args)
-    {
-        OnRewardFinished();
-        LoadInterstitialAd();
-    }
-    
-    public void HandleOnAdClosed(object sender, EventArgs args)
-    {
-        OnRewardFinished();
-        LoadInterstitialAd();
+            var request = new AdRequest.Builder().Build();
+            interstitial.LoadAd(request);
+        }
+
+        private void HandleInterstitialFailedToShow(object sender, AdErrorEventArgs args)
+        {
+            OnRewardFinished();
+            LoadInterstitialAd();
+        }
+
+        public void HandleOnAdClosed(object sender, EventArgs args)
+        {
+            OnRewardFinished();
+            LoadInterstitialAd();
+        }
     }
 }

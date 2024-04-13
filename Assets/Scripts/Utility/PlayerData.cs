@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Newtonsoft.Json;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace Cocktailor.Utility
+namespace Cocktailor
 {
     public static class PlayerData
     {
         private static Dictionary<int, UserCocktailData> userData = new();
-        public static List<int> MemorizedRecipes { get; private set; }
-        public static List<int> NotMemorizedRecipes { get; private set; }
 
         public static Action<int, MemorizedState> OnuserMemorizedStatehange;
 
@@ -19,30 +16,23 @@ namespace Cocktailor.Utility
             LoadData();
         }
 
+        public static List<int> MemorizedRecipes { get; private set; }
+        public static List<int> NotMemorizedRecipes { get; private set; }
+
         private static void UpdateMemorizedLists()
         {
             MemorizedRecipes = new List<int>();
             NotMemorizedRecipes = new List<int>();
 
             foreach (var data in userData)
-            {
                 if (data.Value.UserState == MemorizedState.Yes)
-                {
                     MemorizedRecipes.Add(data.Key);
-                }
-                else if (data.Value.UserState == MemorizedState.No)
-                {
-                    NotMemorizedRecipes.Add(data.Key);
-                }
-            }
+                else if (data.Value.UserState == MemorizedState.No) NotMemorizedRecipes.Add(data.Key);
         }
 
         private static UserCocktailData GetUserDataByIndex(int index)
         {
-            if (!userData.ContainsKey(index))
-            {
-                userData[index] = UserCocktailData.CreateNewUser();
-            }
+            if (!userData.ContainsKey(index)) userData[index] = UserCocktailData.CreateNewUser();
 
             return userData[index];
         }
@@ -73,8 +63,8 @@ namespace Cocktailor.Utility
 
         private static void LoadData()
         {
-            string dataInString = PlayerPrefs.GetString("UserData");
-            userData = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<int, UserCocktailData>>(dataInString);
+            var dataInString = PlayerPrefs.GetString("UserData");
+            userData = JsonConvert.DeserializeObject<Dictionary<int, UserCocktailData>>(dataInString);
 
             userData = userData ?? new Dictionary<int, UserCocktailData>();
             UpdateMemorizedLists();
@@ -82,7 +72,7 @@ namespace Cocktailor.Utility
 
         private static void SaveData()
         {
-            string dataInString = Newtonsoft.Json.JsonConvert.SerializeObject(userData);
+            var dataInString = JsonConvert.SerializeObject(userData);
             PlayerPrefs.SetString("UserData", dataInString);
         }
 
@@ -94,15 +84,15 @@ namespace Cocktailor.Utility
 
         public static bool HasSubscribed()
         {
-            return (PlayerPrefs.GetInt("subscribed") == 1);
+            return PlayerPrefs.GetInt("subscribed") == 1;
         }
-        
+
         public static void UpdateUserState(int index, bool isOMarker)
         {
             var currentState = GetUserState(index);
             var newState = isOMarker ? MemorizedState.Yes : MemorizedState.No;
             if (currentState == newState) newState = MemorizedState.Undefined;
-            
+
             SetUserState(index, newState);
             OnuserMemorizedStatehange?.Invoke(index, newState);
         }

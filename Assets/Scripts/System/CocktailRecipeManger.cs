@@ -7,7 +7,7 @@ namespace Cocktailor
 {
     public static class CocktailRecipeManger
     {
-        private static Dictionary<int, CocktailRecipe> recipes = null;
+        private static Dictionary<int, CocktailRecipe> recipes;
 
         public static Dictionary<int, CocktailRecipe> Recipes
         {

@@ -1,24 +1,24 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace Features.Quiz
+namespace Cocktailor
 {
     public abstract class IngredientSelectorUI : MonoBehaviour
     {
-        [SerializeField] protected List<Image> iconImages;
-        [SerializeField] private Animator panelAnimator;
-        
-        public Action< RecipeType, string, int, int, int> OnValueSelected;
-        protected int selectedIndex, ingredientNo;
-        protected RecipeType recipeType;
-        protected static Color defaultColor = new Color(1f, 1f, 1f, 1f);
-        protected static Color unSelected = new Color(1f, 1f, 1f, 0.35f);
-        
+        protected static Color defaultColor = new(1f, 1f, 1f, 1f);
+        protected static Color unSelected = new(1f, 1f, 1f, 0.35f);
+
         private static readonly int Show = Animator.StringToHash("show");
         private static readonly int Hide = Animator.StringToHash("hide");
+        [SerializeField] protected List<Image> iconImages;
+        [SerializeField] private Animator panelAnimator;
+
+        public Action<RecipeType, string, int, int, int> OnValueSelected;
+        protected RecipeType recipeType;
+        protected int selectedIndex, ingredientNo;
 
         public virtual void Init(RecipeType recipeType, int selectedIndex = -1, int currentSelected2 = -1,
             int ingredientNo = -1)
@@ -35,23 +35,18 @@ namespace Features.Quiz
         {
             if (selectedIndex == -1)
             {
-                foreach (Image iconImage in iconImages)
-                {
-                    iconImage.color = defaultColor;
-                }
+                foreach (var iconImage in iconImages) iconImage.color = defaultColor;
                 return;
             }
-            
-            foreach (Image iconImage in iconImages)
-            {
-                iconImage.color = (iconImages.IndexOf(iconImage) == selectedIndex) ? defaultColor : unSelected;
-            }
+
+            foreach (var iconImage in iconImages)
+                iconImage.color = iconImages.IndexOf(iconImage) == selectedIndex ? defaultColor : unSelected;
         }
 
         public virtual void OnButtonClick(int idx)
         {
             selectedIndex = idx;
-            string answer = string.Empty;
+            var answer = string.Empty;
             switch (recipeType)
             {
                 case RecipeType.Glassware:
@@ -64,21 +59,22 @@ namespace Features.Quiz
                     answer = QuizRecipeSelectManager.GetMethod(idx);
                     break;
             }
+
             OnValueSelected?.Invoke(recipeType, answer, selectedIndex, -1, ingredientNo);
             UpdateIconImages();
             ClosePanel();
         }
-        
+
         [Button]
         protected virtual void InitiateButtons()
         {
-            for(int i = 0; i<iconImages.Count; i++)
+            for (var i = 0; i < iconImages.Count; i++)
             {
                 var iconImage = iconImages[i];
-                Button button = iconImage.GetComponent<Button>();
+                var button = iconImage.GetComponent<Button>();
                 button.onClick.RemoveAllListeners();
                 var i1 = i;
-                button.onClick.AddListener(()=>OnButtonClick(i1));
+                button.onClick.AddListener(() => OnButtonClick(i1));
                 iconImage.color = defaultColor;
             }
         }
@@ -88,8 +84,8 @@ namespace Features.Quiz
             this.selectedIndex = selectedIndex;
             panelAnimator.gameObject.SetActive(true);
             panelAnimator.SetTrigger(Show);
-            
-            if(selectedIndex!=-1)
+
+            if (selectedIndex != -1)
                 UpdateIconImages();
         }
 
@@ -100,7 +96,7 @@ namespace Features.Quiz
 
         public void SetActiveFalse()
         {
-            if(gameObject.activeSelf)
+            if (gameObject.activeSelf)
                 gameObject.SetActive(false);
         }
     }

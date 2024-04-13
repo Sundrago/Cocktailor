@@ -1,21 +1,21 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SfxManager : MonoBehaviour
+namespace Cocktailor
 {
-    public AudioSource[] audios = new AudioSource[10];
-    public static SfxManager Instance { get; private set; }
-
-    private void Awake()
+    public class SfxManager : MonoBehaviour
     {
-        Instance = this;
-    }
+        public AudioSource[] audios = new AudioSource[10];
+        public static SfxManager Instance { get; private set; }
 
-    public void PlaySfx(int idx)
-    {
-        if (PlayerPrefs.GetInt("sfxSet") == 0) return;
-        audios[idx].Play();
+        private void Awake()
+        {
+            Instance = this;
+        }
+
+        public void PlaySfx(int idx)
+        {
+            if (PlayerPrefs.GetInt("sfxSet") == 0) return;
+            audios[idx].Play();
+        }
     }
 }

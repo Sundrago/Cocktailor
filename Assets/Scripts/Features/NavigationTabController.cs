@@ -1,59 +1,66 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
-using Features.Quiz;
-using Features.Quize;
-using Features.RecipeViewer;
-using UnityEngine.Serialization;
+using UnityEngine;
 
-public enum TabOptions { RecipeCard, MemoryCard, Test, Search, ShowAll, Setting }
-
-public class NavigationTabController : MonoBehaviour
+public enum TabOptions
 {
-    [Header("Managers and Controllers")]
-    [SerializeField] private RecipeViewerManager recipeViewerManager;
-    [SerializeField] private QuizManager quizManager;
-    [SerializeField] private SfxManager sfxManager;
-    
-    [Header("UI Elements")]
-    [SerializeField] private GameObject MainPanel, SearchPanel, TestPanel, MoaPanel, SettingsPanel;
-    [SerializeField] private GameObject[] tabButtons = new GameObject[6];
-    [SerializeField] private Transform tabSelectedIndicator;
+    RecipeCard,
+    MemoryCard,
+    Test,
+    Search,
+    ShowAll,
+    Setting
+}
 
-    private void Start()
+namespace Cocktailor
+{
+    public class NavigationTabController : MonoBehaviour
     {
-        SwitchToTab((int)TabOptions.RecipeCard);
-    }
+        [Header("Managers and Controllers")] [SerializeField]
+        private RecipeViewerManager recipeViewerManager;
 
-    public void SwitchToTab(int index)
-    {
-        TabOptions tabOptions = (TabOptions)index;
-        
-        if (recipeViewerManager.isInQuizMode)
+        [SerializeField] private QuizManager quizManager;
+        [SerializeField] private SfxManager sfxManager;
+
+        [Header("UI Elements")] [SerializeField]
+        private GameObject MainPanel, SearchPanel, TestPanel, MoaPanel, SettingsPanel;
+
+        [SerializeField] private GameObject[] tabButtons = new GameObject[6];
+        [SerializeField] private Transform tabSelectedIndicator;
+
+        private void Start()
         {
-            quizManager.PromptUserForQuizExit();
-            return;
+            SwitchToTab((int)TabOptions.RecipeCard);
         }
 
-        SetTargetTab(index);
-        sfxManager.PlaySfx(3);
+        public void SwitchToTab(int index)
+        {
+            var tabOptions = (TabOptions)index;
 
-        recipeViewerManager.ToggleTabVisibility(tabOptions == TabOptions.RecipeCard);
-        MainPanel.SetActive(tabOptions == TabOptions.RecipeCard || tabOptions == TabOptions.MemoryCard);
-        SearchPanel.SetActive(tabOptions == TabOptions.Search);
-        TestPanel.SetActive(tabOptions == TabOptions.Test);
-        MoaPanel.SetActive(tabOptions == TabOptions.ShowAll);
-        SettingsPanel.SetActive(tabOptions == TabOptions.Setting);
-    }
-    
-    private void SetTargetTab(int target)
-    {
-        if (DOTween.IsTweening(tabSelectedIndicator)) DOTween.Kill(tabSelectedIndicator);
+            if (recipeViewerManager.isInQuizMode)
+            {
+                quizManager.PromptUserForQuizExit();
+                return;
+            }
 
-        Vector3 targetPos = new Vector3(tabSelectedIndicator.position.x, tabButtons[target].transform.position.y, 0);
-        tabSelectedIndicator.DOMoveY(targetPos.y, 0.7f)
-            .SetEase(Ease.OutExpo);
+            SetTargetTab(index);
+            sfxManager.PlaySfx(3);
+
+            recipeViewerManager.ToggleTabVisibility(tabOptions == TabOptions.RecipeCard);
+            MainPanel.SetActive(tabOptions == TabOptions.RecipeCard || tabOptions == TabOptions.MemoryCard);
+            SearchPanel.SetActive(tabOptions == TabOptions.Search);
+            TestPanel.SetActive(tabOptions == TabOptions.Test);
+            MoaPanel.SetActive(tabOptions == TabOptions.ShowAll);
+            SettingsPanel.SetActive(tabOptions == TabOptions.Setting);
+        }
+
+        private void SetTargetTab(int target)
+        {
+            if (DOTween.IsTweening(tabSelectedIndicator)) DOTween.Kill(tabSelectedIndicator);
+
+            var targetPos =
+                new Vector3(tabSelectedIndicator.position.x, tabButtons[target].transform.position.y, 0);
+            tabSelectedIndicator.DOMoveY(targetPos.y, 0.7f)
+                .SetEase(Ease.OutExpo);
+        }
     }
 }

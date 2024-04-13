@@ -1,22 +1,21 @@
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SubscriptionOverviewCarousel : MonoBehaviour
 {
     [SerializeField] private GameObject scrollbar;
     [SerializeField] private Image[] previewImage;
-    
+    private float beginScrollValue, endScrollValue;
+    private int currentIndex;
+    private bool isAnimationOn;
+    private bool isDragStarted;
+    private float[] positions;
+
     private Scrollbar scrollbarComponent;
     private float scrollbarValue;
-    private float[] positions;
-    private float beginScrollValue, endScrollValue;
     private float targetPos;
-    private int currentIndex;
-    private bool isDragStarted;
-    private bool isAnimationOn;
 
     private void Start()
     {
@@ -24,18 +23,10 @@ public class SubscriptionOverviewCarousel : MonoBehaviour
         HighlightImage(0);
     }
 
-    public void HighlightImage(int idx)
-    {
-        currentIndex = idx;
-        for (var i = 0; i < previewImage.Length; i++)
-            if (i != idx) previewImage[i].DOFade(0.3f, 0.5f);
-            else previewImage[i].DOFade(1f, 0.5f);
-    }
-
     private void Update()
     {
         positions = CalculatePositions();
-        
+
         var distance = 1f / (positions.Length - 1);
 
         if (Input.GetMouseButton(0))
@@ -47,7 +38,16 @@ public class SubscriptionOverviewCarousel : MonoBehaviour
         {
             ProcessEndDrag(distance);
         }
+
         UpdateTransform(distance);
+    }
+
+    public void HighlightImage(int idx)
+    {
+        currentIndex = idx;
+        for (var i = 0; i < previewImage.Length; i++)
+            if (i != idx) previewImage[i].DOFade(0.3f, 0.5f);
+            else previewImage[i].DOFade(1f, 0.5f);
     }
 
     private float[] CalculatePositions()
@@ -100,9 +100,7 @@ public class SubscriptionOverviewCarousel : MonoBehaviour
 
         for (var i = 0; i < positions.Length; i++)
             if (scrollbarValue < positions[i] + distance / 2 && scrollbarValue > positions[i] - distance / 2)
-            {
                 SetChildTransform(i);
-            }
     }
 
     private void SetChildTransform(int i)

@@ -1,45 +1,43 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cocktailor;
-using Cocktailor.Utility;
-using Features.Quize;
-using Features.RecipeViewer;
-using UI;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-namespace Features.Quiz
+namespace Cocktailor
 {
     public class QuizManager : MonoBehaviour
     {
-        public static QuizManager Instance { get; private set; }
-        
-        [Header("Managers and Controllers")] 
-        [SerializeField] private RecipeViewerManager recipeViewerManager;
+        private const int TestDurationInSec = 420;
+
+        [Header("Managers and Controllers")] [SerializeField]
+        private RecipeViewerManager recipeViewerManager;
+
         [SerializeField] private BottomUIStateManager bottomUIStateManager;
         [SerializeField] private SfxManager sfxManager;
         [SerializeField] private ReviewAnswerPanelController reviewAnswerPanelController;
 
-        [Header("UI Components")] 
-        [SerializeField] private Dropdown rangeChoiceDropdown;
+        [Header("UI Components")] [SerializeField]
+        private Dropdown rangeChoiceDropdown;
+
         [SerializeField] private QuizCardController quizCardPrefab;
         [SerializeField] private Transform quizCardHolder;
         [SerializeField] private GameObject preparationStage, reviewStage, quizStage;
         [SerializeField] private Text timerDisplay;
+        private int currentListIdx, currentQuizCardIndex;
 
         //fields
         private List<QuizCardController> quizCards;
-        private float startTime;
-        private int currentListIdx, currentQuizCardIndex;
-        private float timer;
-        private int[] randomRecipeSelections;
         private QuizState quizState;
-        private const int TestDurationInSec = 420;
-        
+        private int[] randomRecipeSelections;
+        private float startTime;
+        private float timer;
+        public static QuizManager Instance { get; private set; }
+
         //properties
-        public Action<int> OnQuizCardIndexChange { get;  set; }
+        public Action<int> OnQuizCardIndexChange { get; set; }
+
         private int CurrentQuizCardIndex
         {
             get => currentQuizCardIndex;
@@ -51,22 +49,7 @@ namespace Features.Quiz
                 OnQuizCardIndexChange?.Invoke(value);
             }
         }
-        
-        //enums
-        private enum QuizState
-        {
-            PreparatonStage,
-            QuizStage,
-            ReviewStage
-        }
 
-        private enum QuizRangeChoice
-        {
-            TotalRange = 0,
-            NotMemorizedRecipesRange = 1,
-            MemorizedRecipesRange = 2
-        }
-        
         private void Awake()
         {
             Instance = this;
@@ -79,10 +62,7 @@ namespace Features.Quiz
 
         private void Update()
         {
-            if (quizState == QuizState.QuizStage)
-            {
-                UpdateQuizTimerUI();
-            }
+            if (quizState == QuizState.QuizStage) UpdateQuizTimerUI();
         }
 
         private void UpdateQuizTimerUI()
@@ -98,11 +78,11 @@ namespace Features.Quiz
                 FinishTest();
             }
         }
-        
+
         private string FormatTime(float timeInSec)
         {
-            int minutes = Mathf.FloorToInt(timeInSec / 60);
-            int seconds = Mathf.FloorToInt(timeInSec % 60);
+            var minutes = Mathf.FloorToInt(timeInSec / 60);
+            var seconds = Mathf.FloorToInt(timeInSec % 60);
             return minutes > 0 ? $"{minutes}분 {seconds}초" : $"{seconds}초";
         }
 
@@ -132,7 +112,7 @@ namespace Features.Quiz
                     SetupQuizFromGivenRecipes(PlayerData.MemorizedRecipes);
                     break;
             }
-            
+
             BeginQuiz();
         }
 
@@ -196,20 +176,20 @@ namespace Features.Quiz
             SetupUIForQuiz();
             SetupQuizCards();
         }
-        
+
         private void InitializeQuiz()
         {
             InitializeQuizState(QuizState.QuizStage);
             recipeViewerManager.isInQuizMode = true;
             startTime = Time.time;
         }
-        
+
         private void SetupUIForQuiz()
         {
             sfxManager.PlaySfx(9);
             bottomUIStateManager.SwitchUILayout(BottomUIStateManager.BottomUILayout.QuizDisplayed);
             timerDisplay.gameObject.SetActive(true);
-            if(RecipeCardManager.Instance.CurrentRecipeCard != null)
+            if (RecipeCardManager.Instance.CurrentRecipeCard != null)
                 RecipeCardManager.Instance.CurrentRecipeCard.gameObject.SetActive(false);
             MenuUIManager.Instance.HideMenuInterface();
         }
@@ -273,7 +253,7 @@ namespace Features.Quiz
             recipeViewerManager.isInQuizMode = false;
             timerDisplay.gameObject.SetActive(false);
             RemoveQuizCards();
-            if(RecipeCardManager.Instance.CurrentRecipeCard!=null)
+            if (RecipeCardManager.Instance.CurrentRecipeCard != null)
                 RecipeCardManager.Instance.CurrentRecipeCard.gameObject.SetActive(true);
 
             InitializeQuizState(QuizState.PreparatonStage);
@@ -302,7 +282,7 @@ namespace Features.Quiz
 
             reviewAnswerPanelController.UpdateTestResults(quizCards);
         }
-        
+
         public void PromptUserForQuizExit()
         {
             if (!recipeViewerManager.isInQuizMode)
@@ -310,6 +290,7 @@ namespace Features.Quiz
                 QuitTest();
                 return;
             }
+
             PopupManager.Instance.OpenPopup(PopupType.TwoButtons, "진행중인 시험이 있습니다.\n종료하시겠습니까?", QuitTest);
         }
 
@@ -326,6 +307,21 @@ namespace Features.Quiz
                     RemoveQuizCards();
                     InitializeQuizState(QuizState.PreparatonStage);
                 });
+        }
+
+        //enums
+        private enum QuizState
+        {
+            PreparatonStage,
+            QuizStage,
+            ReviewStage
+        }
+
+        private enum QuizRangeChoice
+        {
+            TotalRange = 0,
+            NotMemorizedRecipesRange = 1,
+            MemorizedRecipesRange = 2
         }
     }
 }
