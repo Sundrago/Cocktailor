@@ -5,30 +5,26 @@ using UnityEngine.UI;
 
 namespace Cocktailor
 {
+    public enum RecipeAssessmentState
+    {
+        Idle,
+        Correct,
+        IncorrectIngredient,
+        IncorrectQuantity,
+        BothIncorrect
+    }
+    
+    /// <summary>
+    /// Manages the user interface of the quiz card.
+    /// </summary>
     public class QuizCardUIManager : MonoBehaviour
     {
-        public enum IngredientAssessment
-        {
-            Idle,
-            Correct,
-            IncorrectIngredient,
-            IncorrectQuantity,
-            BothIncorrect
-        }
-
-        [SerializeField]
-        private Text glasswareText, methodText, garnishText, nameText, descriptionText, indexText, scoreText;
-
-        [SerializeField] private Image scoreImage, iconImage, glasswareImage, methodImage, garnishImage;
+        [SerializeField] private Text glasswareText, methodText, garnishText, nameText, descriptionText, indexText, scoreText;
         [SerializeField] private QuizCardUIButtonController[] ingredientButtons;
-
-        [FormerlySerializedAs("ingredientIconImages")] [SerializeField]
-        private Sprite[] ingredientTabImages;
-
-        [SerializeField] private Sprite[] glasswareTabImages;
-        [SerializeField] private Sprite[] garnishTabImages, methodTabImages;
-        [FormerlySerializedAs("iconTab")] [SerializeField] private RecipeCardVisibilityController iconVisibility;
+        [SerializeField] private Sprite[] ingredientTabImages, glasswareTabImages, garnishTabImages, methodTabImages; 
+        [SerializeField] private RecipeCardVisibilityController iconVisibility;
         [SerializeField] private Text needMoreIngredientText;
+        [SerializeField] private Image scoreImage, iconImage, glasswareImage, methodImage, garnishImage;
 
         public void InitUI(int cocktailIndex, int quizIndex)
         {
@@ -51,18 +47,18 @@ namespace Cocktailor
             for (var i = 0; i < ingredientButtons.Length; i++)
                 if (i == ingredientCount)
                 {
-                    ingredientButtons[i].SetButtonState(RcpAmtButtonState.PressToAdd);
-                    // ingredientButtons[i].SetIconImage(ingredientTabImages[0]);
+                    ingredientButtons[i].SetButtonState(RecipeButtonState.PressToAdd);
+                    ingredientButtons[i].SetIconImage(ingredientTabImages[0]);
                 }
                 else if (i < ingredientCount)
                 {
-                    ingredientButtons[i].SetButtonState(RcpAmtButtonState.Active);
+                    ingredientButtons[i].SetButtonState(RecipeButtonState.Active);
                     ingredientButtons[i].SetIngredientAndQuantity(userAnswer.Ingredients[i], userAnswer.Amounts[i]);
-                    // ingredientButtons[i].SetIconImage(ingredientTabImages[1]);
+                    ingredientButtons[i].SetIconImage(ingredientTabImages[1]);
                 }
                 else
                 {
-                    ingredientButtons[i].SetButtonState(RcpAmtButtonState.DeActive);
+                    ingredientButtons[i].SetButtonState(RecipeButtonState.DeActive);
                 }
         }
 
@@ -88,7 +84,7 @@ namespace Cocktailor
             }
         }
 
-        public void UpdateIngredientScore(List<IngredientAssessment> ingredientAssessments)
+        public void UpdateIngredientScore(List<RecipeAssessmentState> ingredientAssessments)
         {
             for (var i = 0; i < ingredientAssessments.Count; i++)
                 ingredientButtons[i].SetIconImage(ingredientTabImages[(int)ingredientAssessments[i]]);

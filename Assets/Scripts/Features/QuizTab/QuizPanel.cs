@@ -9,37 +9,34 @@ using Random = UnityEngine.Random;
 namespace Cocktailor
 {
     /// <summary>
-    /// Manages the user experience within the quiz tab.
+    /// Responsible for orchestrating the quiz feature
     /// </summary>
-    public class QuizManager : MonoBehaviour
+    public class QuizPanel : MonoBehaviour
     {
         private const int TestDurationInSec = 420;
-
-        [Header("Managers and Controllers")] [SerializeField]
-        private RecipeViewerManager recipeViewerManager;
-
+        
+        [Header("Managers and Controllers")] 
+        [SerializeField] private RecipeViewerPanel recipeViewerPanel;
         [SerializeField] private BottomUIStateManager bottomUIStateManager;
         [SerializeField] private SfxManager sfxManager;
-        [FormerlySerializedAs("answerUIManager")] [FormerlySerializedAs("reviewAnswerUIManager")] [FormerlySerializedAs("reviewAnswerPanelController")] [SerializeField] private QuizAnswerManager quizAnswerManager;
+        [SerializeField] private QuizAnswerManager quizAnswerManager;
 
-        [Header("QuizCard Components")] [SerializeField]
-        private Dropdown rangeChoiceDropdown;
-
+        [Header("QuizCard Components")] 
+        [SerializeField] private Dropdown rangeChoiceDropdown;
         [SerializeField] private QuizCardController quizCardPrefab;
         [SerializeField] private Transform quizCardHolder;
         [SerializeField] private GameObject preparationStage, reviewStage, quizStage;
         [SerializeField] private Text timerDisplay;
-        private int currentListIdx, currentQuizCardIndex;
 
         //fields
         private List<QuizCardController> quizCards;
         private QuizState quizState;
         private int[] randomRecipeSelections;
-        private float startTime;
-        private float timer;
-        public static QuizManager Instance { get; private set; }
+        private int currentListIdx, currentQuizCardIndex;
+        private float startTime, timer;
 
         //properties
+        public static QuizPanel Instance { get; private set; }
         public Action<int> OnQuizCardIndexChange { get; set; }
 
         private int CurrentQuizCardIndex
@@ -54,16 +51,10 @@ namespace Cocktailor
             }
         }
 
-        private void Awake()
-        {
-            Instance = this;
-        }
+        private void Awake() => Instance = this;
 
-        private void Start()
-        {
-            InitializeQuizState(QuizState.PreparatonStage);
-        }
-
+        private void Start() => InitializeQuizState(QuizState.PreparatonStage);
+        
         private void Update()
         {
             if (quizState == QuizState.QuizStage) UpdateQuizTimerUI();
@@ -184,7 +175,7 @@ namespace Cocktailor
         private void InitializeQuiz()
         {
             InitializeQuizState(QuizState.QuizStage);
-            recipeViewerManager.isInQuizMode = true;
+            recipeViewerPanel.isInQuizMode = true;
             startTime = Time.time;
         }
 
@@ -254,7 +245,7 @@ namespace Cocktailor
         private void QuitTest()
         {
             bottomUIStateManager.SwitchUILayout(BottomUIStateManager.BottomUILayout.DefaultDisplayed);
-            recipeViewerManager.isInQuizMode = false;
+            recipeViewerPanel.isInQuizMode = false;
             timerDisplay.gameObject.SetActive(false);
             RemoveQuizCards();
             if (RecipeCardManager.Instance.CurrentRecipeCard != null)
@@ -274,7 +265,7 @@ namespace Cocktailor
             InitializeQuizState(QuizState.ReviewStage);
 
             sfxManager.PlaySfx(8);
-            recipeViewerManager.isInQuizMode = true;
+            recipeViewerPanel.isInQuizMode = true;
             timerDisplay.gameObject.SetActive(false);
             bottomUIStateManager.SwitchUILayout(BottomUIStateManager.BottomUILayout.QuizFinishedDisplayed);
 
@@ -289,7 +280,7 @@ namespace Cocktailor
 
         public void PromptUserForQuizExit()
         {
-            if (!recipeViewerManager.isInQuizMode)
+            if (!recipeViewerPanel.isInQuizMode)
             {
                 QuitTest();
                 return;

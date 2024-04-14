@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 namespace Cocktailor
 {
+    /// <summary>
+    /// Controls the visibility and behavior of a recipe card in the user interface.
+    /// </summary>
     public class RecipeCardVisibilityController : MonoBehaviour
     {
         [SerializeField] private Animator cardOpenAnimator;

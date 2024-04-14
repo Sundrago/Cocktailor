@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Cocktailor
 {
+    /// <summary>
+    /// Assesses user's quiz answers and generates a score for UI representation.
+    /// </summary>
     public static class QuizAnswerEvaluator
     {
         public static int GetQuizResult(QuizCardUIManager UIManager, UserAnswer userAnswer,
@@ -52,14 +55,14 @@ namespace Cocktailor
         {
             var score = 0;
             var assessments =
-                new List<QuizCardUIManager.IngredientAssessment>();
+                new List<RecipeAssessmentState>();
             var correctIdxs = new List<int>();
 
             for (var i = 0; i < ingredientCount; i++)
             {
                 assessments.Add(
                     GetIngredientAssessment(userAnswer.Ingredients[i], currentRecipe, userAnswer.Amounts[i]));
-                if (assessments[i] == QuizCardUIManager.IngredientAssessment.Correct)
+                if (assessments[i] == RecipeAssessmentState.Correct)
                     correctIdxs.Add(i);
                 else
                     score -= 1;
@@ -73,15 +76,15 @@ namespace Cocktailor
             return score;
         }
 
-        private static QuizCardUIManager.IngredientAssessment GetIngredientAssessment(string userIngredient,
+        private static RecipeAssessmentState GetIngredientAssessment(string userIngredient,
             CocktailRecipe currentRecipe, string userAnswerAmount)
         {
             var ingredientIndex = GetIngredientIndex(userIngredient, currentRecipe);
             if (ingredientIndex == -1)
-                return QuizCardUIManager.IngredientAssessment.BothIncorrect;
+                return RecipeAssessmentState.BothIncorrect;
             return IsAmountCorrect(ingredientIndex, userAnswerAmount, currentRecipe)
-                ? QuizCardUIManager.IngredientAssessment.Correct
-                : QuizCardUIManager.IngredientAssessment.IncorrectQuantity;
+                ? RecipeAssessmentState.Correct
+                : RecipeAssessmentState.IncorrectQuantity;
         }
 
         private static int GetIngredientIndex(string userIngredient, CocktailRecipe currentRecipe)

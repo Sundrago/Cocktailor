@@ -144,6 +144,7 @@ MonoBehaviour:
         m_sound: sound
         m_bigPicture: big_picture
         m_largeIcon: large_icon
+      m_allowInExactTimeScheduling: 1
   m_mediaServicesSettings:
     m_isEnabled: 0
     m_usesCamera: 1
@@ -157,3 +158,6 @@ MonoBehaviour:
     m_androidProperties:
       m_customSchemeUrls: []
       m_universalLinks: []
+  m_utilitySettings:
+    m_isEnabled: 1
+    m_usesStoreRatingUtility: 1

@@ -12,32 +12,30 @@ namespace Cocktailor
     }
 
     /// <summary>
-    /// Controls the behavior and interaction of a quiz card.
+    /// Controls the behavior and interaction of a Quiz Card.
     /// </summary>
     [RequireComponent(typeof(RecipeCardSwipeHandler))]
     [RequireComponent(typeof(PanelAnimControl))]
     public class QuizCardController : MonoBehaviour
     {
-        [Header("Managers and controllers")] [SerializeField]
-        private QuizCardUIManager UIManager;
-
+        [Header("Managers and controllers")] 
+        [SerializeField] private QuizCardUIManager UIManager;
         [SerializeField] private RecipeSelectorBase glasswareSlector,
             garnishSelector,
             MethodSeletor,
             IngredientSelector,
             AmountSelector;
-
-        private int ingredientCount = 1;
-
-        private UserAnswer userAnswer;
-
+        
         public RecipeCardSwipeHandler RecipeCardSwipeHandler { get; private set; }
         public PanelAnimControl PanelAnimControl { get; private set; }
-        public int CocktailIndex { get; private set; }
         public CocktailRecipe CurrentRecipe { get; private set; }
+        public int CocktailIndex { get; private set; }
         public int Score { get; private set; } = -1;
         public bool AnswerMode { get; private set; }
-
+        
+        private UserAnswer userAnswer;
+        private int ingredientCount = 1;
+        
         private void Awake()
         {
             RecipeCardSwipeHandler = GetComponent<RecipeCardSwipeHandler>();
@@ -87,8 +85,9 @@ namespace Cocktailor
             gameObject.SetActive(false);
         }
 
-        public void ShowPanel()
+        public void ShowPanel(bool answerMode = false)
         {
+            AnswerMode = answerMode;
             gameObject.SetActive(true);
             RecipeCardSwipeHandler.Centerize();
             HideAllSelector();
@@ -189,12 +188,6 @@ namespace Cocktailor
             AmountSelector.Init(RecipeType.Ingredients, i, userAnswer.AmountIndex[i].Item1,
                 userAnswer.AmountIndex[i].Item2);
             AmountSelector.OnValueSelected += HandleUserRecipeSelection;
-        }
-
-        public void OpenCardAnswer()
-        {
-            AnswerMode = true;
-            ShowPanel();
         }
     }
 }

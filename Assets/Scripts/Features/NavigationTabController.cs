@@ -15,16 +15,14 @@ public enum TabOptions
 namespace Cocktailor
 {
     public class NavigationTabController : MonoBehaviour
-    {
-        [Header("Managers and Controllers")] [SerializeField]
-        private RecipeViewerManager recipeViewerManager;
-
-        [FormerlySerializedAs("quizTabManager")] [SerializeField] private QuizManager quizManager;
+    { 
+        [Header("Managers and Controllers")] 
+        [SerializeField] private RecipeViewerPanel recipeViewerPanel; 
+        [SerializeField] private QuizPanel quizPanel;
         [SerializeField] private SfxManager sfxManager;
 
-        [Header("QuizCard Elements")] [SerializeField]
-        private GameObject MainPanel, SearchPanel, TestPanel, MoaPanel, SettingsPanel;
-
+        [Header("QuizCard Elements")] 
+        [SerializeField] private GameObject MainPanel, SearchPanel, TestPanel, MoaPanel, SettingsPanel;
         [SerializeField] private GameObject[] tabButtons = new GameObject[6];
         [SerializeField] private Transform tabSelectedIndicator;
 
@@ -37,16 +35,16 @@ namespace Cocktailor
         {
             var tabOptions = (TabOptions)index;
 
-            if (recipeViewerManager.isInQuizMode)
+            if (recipeViewerPanel.isInQuizMode)
             {
-                quizManager.PromptUserForQuizExit();
+                quizPanel.PromptUserForQuizExit();
                 return;
             }
 
             SetTargetTab(index);
             sfxManager.PlaySfx(3);
 
-            recipeViewerManager.ToggleTabVisibility(tabOptions == TabOptions.RecipeCard);
+            recipeViewerPanel.ToggleTabVisibility(tabOptions == TabOptions.RecipeCard);
             MainPanel.SetActive(tabOptions == TabOptions.RecipeCard || tabOptions == TabOptions.MemoryCard);
             SearchPanel.SetActive(tabOptions == TabOptions.Search);
             TestPanel.SetActive(tabOptions == TabOptions.Test);

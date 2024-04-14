@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Cocktailor
 {
+    /// <summary>
+    /// Holds data for a recipe card.
+    /// </summary>
     public class RecipeCardData
     {
         public RecipeCardData(

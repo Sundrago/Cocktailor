@@ -7,10 +7,7 @@ namespace Cocktailor
     public class OpenPro : MonoBehaviour
     {
         [SerializeField] private Dropdown dropdown;
-
-        [FormerlySerializedAs("settings")] [SerializeField]
-        private SettingsManager settingsManager;
-        // [FormerlySerializedAs("main")] [SerializeField] private RecipeViewerManager recipeViewerManager;
+        [SerializeField] private SettingsManager settingsManager;
 
         public void OpenProPanelIfNotSubscribed()
         {

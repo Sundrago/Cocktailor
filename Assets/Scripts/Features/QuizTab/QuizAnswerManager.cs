@@ -5,30 +5,29 @@ using UnityEngine.UI;
 
 namespace Cocktailor
 {
+    /// <summary>
+    /// Manages the quiz answers and updates the test results.
+    /// </summary>
     public class QuizAnswerManager : MonoBehaviour
     {
         private static readonly int Show = Animator.StringToHash("show");
 
-        [Header("Managers and Controllers")] [SerializeField]
-        private SfxManager sfxManager;
-
-        [FormerlySerializedAs("quizTabManager")] [SerializeField] private QuizManager quizManager;
+        [Header("Managers and Controllers")] 
+        [SerializeField] private SfxManager sfxManager; 
+        [SerializeField] private QuizPanel quizPanel;
         [SerializeField] private BottomUIStateManager bottomUIStateManager;
         [SerializeField] private Animator reviewAnswerAnimator;
 
-        [Header("QuizCard Components")] [SerializeField]
-        private Text ansFinalScore;
-
-        [SerializeField] private Text[] ansName, ansScore;
+        [Header("QuizCard Components")] 
         [SerializeField] private RecipeCardController answerCardPrefab;
         [SerializeField] private Transform cardHolder;
-        [SerializeField] private Text[] testShowButtonTexts;
+        [SerializeField] private Text[] ansName, ansScore, testShowButtonTexts;
+        [SerializeField] private Text ansFinalScore;
+        
         private RecipeCardController answerCard;
+        private List<QuizCardController> quizCards;
         private bool[] answerReady;
         private int currentQuizCardIndex;
-
-        private List<QuizCardController> quizCards;
-
         private ReviewState reviewState;
 
         public void UpdateTestResults(List<QuizCardController> quizCards)
@@ -93,7 +92,7 @@ namespace Cocktailor
 
             CheckIfOpenQuizCardExists();
             currentQuizCardIndex = i;
-            quizCards[i].OpenCardAnswer();
+            quizCards[i].ShowPanel(true);
             quizCards[i].PanelAnimControl.PlayAnim(CardAnimationType.InFromRight);
             quizCards[i].RecipeCardSwipeHandler.OnSwipeEvent += OnQuizCardClose;
         }

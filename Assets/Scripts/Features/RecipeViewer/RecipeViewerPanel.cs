@@ -6,27 +6,23 @@ using UnityEngine.UI;
 namespace Cocktailor
 {
     /// <summary>
-    ///     Manages the recipe viewer feature.
+    ///      manages the selection and display the cocktail recipes based on different modes.
     /// </summary>
-    /// x
-    public class RecipeViewerManager : MonoBehaviour
+    public class RecipeViewerPanel : MonoBehaviour
     {
-        [Header("Managers and Controllers")] [SerializeField]
-        private RecipeListManager recipeListManager;
-
+        [Header("Managers and Controllers")] 
+        [SerializeField] private RecipeListManager recipeListManager;
         [SerializeField] private SfxManager sfxManager;
         [SerializeField] private SettingsManager settingsPanel;
 
-        [Header("QuizCard Components")] [SerializeField]
-        private Dropdown rangeSelectorDropdown;
-
+        [Header("QuizCard Components")] 
+        [SerializeField] private Dropdown rangeSelectorDropdown;
         [SerializeField] private ScrollRect selectionScrollRect;
-        public bool isInQuizMode;
-
+        
         private RecipeCardController currentRecipeCard;
-        private int currentSelectionIndex, totalRecipeCount;
-        private bool isMenuVisible, isInHideTabMode;
+        public bool isInQuizMode, isMenuVisible, isInHideTabMode;
         private List<int> recipeSelectionList = new(40);
+        private int currentSelectionIndex, totalRecipeCount;
 
         private void Start()
         {

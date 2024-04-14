@@ -7,32 +7,28 @@ using UnityEngine.UI;
 
 namespace Cocktailor
 {
+    /// <summary>
+    /// Controls the behavior of the recipe card in the user interface.
+    /// </summary>
     [RequireComponent(typeof(RecipeCardSwipeHandler))]
     public class RecipeCardController : MonoBehaviour
     {
-        [Header("Managers and Controllers")] [SerializeField]
-        private SfxManager sfxManager;
-
-        [SerializeField] private CocktailIconManager iconManager;
-        [FormerlySerializedAs("recipeMarkerController")] [SerializeField] private RecipeCardMarkerController recipeCardMarkerController;
+        [Header("Managers and Controllers")] 
+        [SerializeField] private SfxManager sfxManager;
+        [SerializeField] private CocktailIconManager iconManager; 
+        [SerializeField] private RecipeCardMarkerController recipeCardMarkerController;
         [SerializeField] public PanelAnimControl panelAnimControl;
 
-        [Header("QuizCard Components")] [SerializeField]
-        private Image myIcon;
-
+        [Header("QuizCard Components")] 
         [SerializeField] private RectTransform recipePanelScaler;
-        [SerializeField] private Text nameText, descriptionText, indexText;
-        [FormerlySerializedAs("iconTab")] [SerializeField] private RecipeCardVisibilityController iconVisibility;
-        [FormerlySerializedAs("glasswareTab")] [SerializeField] private RecipeCardVisibilityController glasswareVisibility;
-        [FormerlySerializedAs("methodTab")] [SerializeField] private RecipeCardVisibilityController methodVisibility;
-        [FormerlySerializedAs("garnishTab")] [SerializeField] private RecipeCardVisibilityController garnishVisibility;
-        [FormerlySerializedAs("ingredientTab")] [SerializeField] private RecipeCardVisibilityController ingredientVisibility;
-        [SerializeField] private GameObject closeButton, transparentBackground;
+        [SerializeField] private Image myIcon, noteButton;
         [SerializeField] private TMP_InputField noteInputField;
-        [SerializeField] private Image noteButton;
         [SerializeField] private Transform initialPosition, basePosition;
+        [SerializeField] private Text nameText, descriptionText, indexText;
+        [SerializeField] private GameObject closeButton, transparentBackground;
+        [SerializeField] private RecipeCardVisibilityController iconVisibility, glasswareVisibility, methodVisibility, garnishVisibility, ingredientVisibility;
+        
         public RecipeCardSwipeHandler RecipeCardSwipeHandler { get; private set; }
-
         public int CurrentRecipeIndex { get; private set; }
 
         private void Awake()

@@ -12,28 +12,22 @@ namespace Cocktailor
         SwipeRight
     }
 
+    /// <summary>
+    /// Handles UI swipe events for a recipe card and quiz card.
+    /// </summary>
     public class RecipeCardSwipeHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
+        private const float Velocity = 0.125f;
+        
         [SerializeField] private SfxManager sfxManager;
-        [FormerlySerializedAs("searchMode")] public bool isInSearchMode;
-        [FormerlySerializedAs("qMode")] public bool isInQuestionMode;
-        [FormerlySerializedAs("ansMode")] public bool isInAnswerMode;
-        private readonly float velocity = 0.125f;
+        [SerializeField] private bool isInQuestionMode;
+        
         private Vector2 defaultMousePosition;
-
-        private Vector3 defaultPosition;
-
-        private float defaultSize;
+        private Vector3 defaultPosition, targetPosition;
+        private float defaultSize, targetRotation, targetSize;
         private bool initiated;
-
-        private bool isDraggableCentered;
-
-        [FormerlySerializedAs("destroySelf")] private bool shouldBeDestroyed;
-        private Vector3 targetPosition;
-        private float targetRotation;
-
-        private float targetSize;
-
+        private bool isDraggableCentered, shouldBeDestroyed;
+        
         public Action<SwipeEventType> OnSwipeEvent { get; set; }
 
         public void Update()
@@ -49,7 +43,6 @@ namespace Cocktailor
         public void OnBeginDrag(PointerEventData eventData)
         {
             if (shouldBeDestroyed) return;
-
             if (!isInQuestionMode) Destroy(gameObject.GetComponent<Animator>());
 
             defaultMousePosition = eventData.position;
@@ -76,35 +69,47 @@ namespace Cocktailor
 
             if (transform.position.x >= Screen.width / 5f * 2f && transform.position.x <= Screen.width / 5f * 3f)
             {
-                //Center
-                targetPosition = defaultPosition;
-                targetRotation = 0;
-                targetSize = defaultSize;
+                BackToCenter();
             }
             else if (transform.position.x < Screen.width / 5f * 2f)
             {
-                // Left
-                var diff = (targetPosition - defaultPosition) * 2.5f;
-                targetSize = 2 / 3f;
-                targetPosition = transform.position + diff;
-                shouldBeDestroyed = true;
-
-                if (targetPosition.x > -Screen.width / 3f)
-                    targetPosition = new Vector3(-Screen.width / 3f, targetPosition.y, 0);
-                OnSwipeEvent?.Invoke(SwipeEventType.SwipeLeft);
+                HandleSwipeLeft();
             }
             else
             {
-                //Right
-                var diff = (targetPosition - defaultPosition) * 2.5f;
-                targetSize = 2 / 3f;
-                targetPosition = transform.position + diff;
-                shouldBeDestroyed = true;
-
-                if (targetPosition.x < Screen.width + Screen.width / 3f)
-                    targetPosition = new Vector3(Screen.width + Screen.width / 3f, targetPosition.y, 0);
-                OnSwipeEvent?.Invoke(SwipeEventType.SwipeRight);
+                HandleSwipeRight();
             }
+        }
+
+        private void HandleSwipeRight()
+        {
+            var diff = (targetPosition - defaultPosition) * 2.5f;
+            targetSize = 2 / 3f;
+            targetPosition = transform.position + diff;
+            shouldBeDestroyed = true;
+
+            if (targetPosition.x < Screen.width + Screen.width / 3f)
+                targetPosition = new Vector3(Screen.width + Screen.width / 3f, targetPosition.y, 0);
+            OnSwipeEvent?.Invoke(SwipeEventType.SwipeRight);
+        }
+
+        private void HandleSwipeLeft()
+        {
+            var diff = (targetPosition - defaultPosition) * 2.5f;
+            targetSize = 2 / 3f;
+            targetPosition = transform.position + diff;
+            shouldBeDestroyed = true;
+
+            if (targetPosition.x > -Screen.width / 3f)
+                targetPosition = new Vector3(-Screen.width / 3f, targetPosition.y, 0);
+            OnSwipeEvent?.Invoke(SwipeEventType.SwipeLeft);
+        }
+
+        private void BackToCenter()
+        {
+            targetPosition = defaultPosition;
+            targetRotation = 0;
+            targetSize = defaultSize;
         }
 
 
@@ -138,19 +143,31 @@ namespace Cocktailor
 
         private void UpdateTransform()
         {
-            var delta = velocity / (1 - Time.deltaTime);
+            var delta = Velocity / (1 - Time.deltaTime);
+            UpdatePosition(delta);
+            UpdateRotation(delta);
+            UpdateScale(delta);
+        }
 
-            var newX = LerpTowardsTarget(transform.position.x, targetPosition.x, delta);
-            var newY = LerpTowardsTarget(transform.position.y, targetPosition.y, delta);
-            transform.position = new Vector3(newX, newY, 0);
+        private void UpdateScale(float delta)
+        {
+            var newXScale = LerpTowardsTarget(transform.localScale.x, targetSize, delta);
+            transform.localScale = new Vector3(newXScale, newXScale, 1);
+        }
 
+        private void UpdateRotation(float delta)
+        {
             var currentAngle = transform.eulerAngles.z;
             if (currentAngle >= 200) currentAngle -= 360;
             var newZRotation = LerpTowardsTarget(currentAngle, targetRotation, delta);
             transform.rotation = Quaternion.Euler(0, 0, newZRotation);
+        }
 
-            var newXScale = LerpTowardsTarget(transform.localScale.x, targetSize, delta);
-            transform.localScale = new Vector3(newXScale, newXScale, 1);
+        private void UpdatePosition(float delta)
+        {
+            var newX = LerpTowardsTarget(transform.position.x, targetPosition.x, delta);
+            var newY = LerpTowardsTarget(transform.position.y, targetPosition.y, delta);
+            transform.position = new Vector3(newX, newY, 0);
         }
 
         private float LerpTowardsTarget(float currentValue, float targetValue, float delta)

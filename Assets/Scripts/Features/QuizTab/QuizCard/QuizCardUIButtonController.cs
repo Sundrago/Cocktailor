@@ -3,13 +3,16 @@ using UnityEngine.UI;
 
 namespace Cocktailor
 {
-    public enum RcpAmtButtonState
+    public enum RecipeButtonState
     {
         DeActive,
         PressToAdd,
         Active
     }
 
+    /// <summary>
+    /// Handles the behavior of a quiz card UI button.
+    /// </summary>
     public class QuizCardUIButtonController : MonoBehaviour
     {
         [SerializeField] private Text addButtonText;
@@ -18,20 +21,22 @@ namespace Cocktailor
         [SerializeField] private Image iconImage;
         [SerializeField] private Animator animator;
 
-        public void SetButtonState(RcpAmtButtonState state)
+        private static readonly int Show = Animator.StringToHash("show");
+
+        public void SetButtonState(RecipeButtonState state)
         {
-            gameObject.SetActive(state != RcpAmtButtonState.DeActive);
-            addButtonText.gameObject.SetActive(state == RcpAmtButtonState.PressToAdd);
-            ingredientNameText.gameObject.SetActive(state == RcpAmtButtonState.Active);
-            quantityText.gameObject.SetActive(state == RcpAmtButtonState.Active);
+            gameObject.SetActive(state != RecipeButtonState.DeActive);
+            addButtonText.gameObject.SetActive(state == RecipeButtonState.PressToAdd);
+            ingredientNameText.gameObject.SetActive(state == RecipeButtonState.Active);
+            quantityText.gameObject.SetActive(state == RecipeButtonState.Active);
         }
 
         public void SetButtonActive()
         {
-            animator.SetTrigger("show");
+            animator.SetTrigger(Show);
             ingredientNameText.text = "재료 선택";
             quantityText.text = "oz";
-            SetButtonState(RcpAmtButtonState.Active);
+            SetButtonState(RecipeButtonState.Active);
         }
 
         public void SetIngredientNameText(string text)

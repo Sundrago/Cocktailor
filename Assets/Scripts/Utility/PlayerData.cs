@@ -5,10 +5,12 @@ using UnityEngine;
 
 namespace Cocktailor
 {
+    /// <summary>
+    /// Provides access to player-related data and functionalities.
+    /// </summary>
     public static class PlayerData
     {
         private static Dictionary<int, UserCocktailData> userData = new();
-
         public static Action<int, MemorizedState> OnuserMemorizedStatehange;
 
         static PlayerData()

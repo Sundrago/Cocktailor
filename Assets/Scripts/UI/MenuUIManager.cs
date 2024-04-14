@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace Cocktailor
 {
+    /// <summary>
+    /// Manages the user interface for the menu in the Cocktailor game.
+    /// </summary>
     public class MenuUIManager : MonoBehaviour
     {
         [SerializeField] private Animator menuPanelAnimator;
@@ -15,6 +18,7 @@ namespace Cocktailor
         private static readonly int Show = Animator.StringToHash("show");
 
         private bool isMenuVisible;
+        
         public static MenuUIManager Instance { get; private set; }
 
         private void Awake()

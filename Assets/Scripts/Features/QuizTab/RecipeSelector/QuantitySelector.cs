@@ -90,7 +90,7 @@ namespace Cocktailor
 
         public void ConfirmButtonClicked()
         {
-            var output = CocktailRecipeInputTypeManager.GetAmount(selectedIndex, selectedIndex2);
+            var output = CocktailRecipeIngredientManager.GetAmount(selectedIndex, selectedIndex2);
             OnValueSelected?.Invoke(RecipeType.Quantity, output, selectedIndex, selectedIndex2, ingredientNo);
             ClosePanel();
         }

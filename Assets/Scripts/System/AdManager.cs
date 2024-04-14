@@ -5,6 +5,9 @@ using UnityEngine.Serialization;
 
 namespace Cocktailor
 {
+    /// <summary>
+    /// Manages the display of ads and handles the loading and showing of both interstitial and rewarded ads.
+    /// </summary>
     public class AdManager : MonoBehaviour
     {
         public enum AdType
@@ -12,19 +15,15 @@ namespace Cocktailor
             InterstitialAd,
             RewardedAd
         }
-
-        [FormerlySerializedAs("mainControl")] [SerializeField]
-        private RecipeViewerManager recipeViewerManager;
-
-        [FormerlySerializedAs("quizTabManager")] [SerializeField] private QuizManager quizManager;
+        
+        [SerializeField] private RecipeViewerPanel recipeViewerPanel; 
+        [SerializeField] private QuizPanel quizPanel;
 
         private AdType adType;
         private InterstitialAd interstitial;
         private float lastAdShownTime;
-
         private Action onAdWatch;
         private int quizIndex;
-
         private RewardedAd rewardedAd;
         private RewardedInterstitialAd rewardedInterstitialAd;
 

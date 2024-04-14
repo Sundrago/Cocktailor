@@ -7,6 +7,7 @@ public class SubscriptionCarousel : MonoBehaviour
 {
     [SerializeField] private GameObject scrollbar;
     [SerializeField] private Image[] previewImage;
+    
     private float beginScrollValue, endScrollValue;
     private int currentIndex;
     private bool isAnimationOn;

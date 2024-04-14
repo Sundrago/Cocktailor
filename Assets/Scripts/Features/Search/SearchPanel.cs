@@ -6,7 +6,10 @@ using UnityEngine.UI;
 
 namespace Cocktailor
 {
-    public class SearchManager : MonoBehaviour
+    /// <summary>
+    /// Manages the search functionality for cocktail recipes.
+    /// </summary>
+    public class SearchPanel : MonoBehaviour
     {
         [SerializeField] public RectTransform contents;
         [SerializeField] public GameObject cocktail;

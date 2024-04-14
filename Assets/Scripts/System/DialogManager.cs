@@ -4,6 +4,9 @@ using VoxelBusters.EssentialKit;
 
 namespace Cocktailor
 {
+    /// <summary>
+    /// Manages the display and functionality of various dialogs in the application.
+    /// </summary>
     public class DialogManager
     {
         public void ShowResolutionChangeDialog(Dropdown resolutionSet)

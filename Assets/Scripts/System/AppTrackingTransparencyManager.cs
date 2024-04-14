@@ -6,9 +6,11 @@ using Unity.Advertisement.IosSupport;
 
 namespace Cocktailor
 {
+    /// <summary>
+    /// Handles the management of tracking authorization requests for iOS devices.
+    /// </summary>
     public class AppTrackingTransparencyManager : MonoBehaviour
     {
-        // Start is called before the first frame update
         private void Start()
         {
 #if UNITY_IPHONE

@@ -50,13 +50,13 @@ namespace Cocktailor
             switch (recipeType)
             {
                 case RecipeType.Glassware:
-                    answer = CocktailRecipeInputTypeManager.GetGlassware(idx);
+                    answer = CocktailRecipeIngredientManager.GetGlassware(idx);
                     break;
                 case RecipeType.Garnish:
-                    answer = CocktailRecipeInputTypeManager.GetGarnish(idx);
+                    answer = CocktailRecipeIngredientManager.GetGarnish(idx);
                     break;
                 case RecipeType.Method:
-                    answer = CocktailRecipeInputTypeManager.GetMethod(idx);
+                    answer = CocktailRecipeIngredientManager.GetMethod(idx);
                     break;
             }
 

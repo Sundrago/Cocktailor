@@ -16,11 +16,8 @@ namespace Cocktailor
         [SerializeField] private GameObject subscriptionPanel;
         [SerializeField] private GameObject[] proPreviewImages = new GameObject[5];
         [SerializeField] private GameObject loadingIcon;
-
-        [FormerlySerializedAs("mainControl")] [SerializeField]
-        private RecipeViewerManager recipeViewerManager;
-
-        [FormerlySerializedAs("subscriptionOverviewCarousel")] [SerializeField] private SubscriptionCarousel subscriptionCarousel;
+        [SerializeField] private RecipeViewerPanel recipeViewerPanel;
+        [SerializeField] private SubscriptionCarousel subscriptionCarousel;
 
         private Vector3 originalPos;
 

@@ -48,7 +48,7 @@ namespace Cocktailor
             selectedIndex = index;
             UpdateIconImages();
             secondIngredientSelector.InitAndOpen(
-                CocktailRecipeInputTypeManager.RecipeTypeHolderData.IngredientTypes[selectedIndex].Ingredients, selectedIndex2,
+                CocktailRecipeIngredientManager.RecipeTypeHolderData.IngredientTypes[selectedIndex].Ingredients, selectedIndex2,
                 Selection2Click);
         }
 

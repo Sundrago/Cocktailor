@@ -4,7 +4,10 @@ using UnityEngine.UI;
 
 namespace Cocktailor
 {
-    public class Selection : MonoBehaviour
+    /// <summary>
+    /// Represents a recipe item in the cocktail recipe list.
+    /// </summary>
+    public class RecipeItem : MonoBehaviour
     {
         [SerializeField] public Text indexTxt, nameTxt;
         [SerializeField] public Image smallIco;

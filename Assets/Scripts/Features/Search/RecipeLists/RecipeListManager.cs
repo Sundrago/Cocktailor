@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class RecipeListManager : MonoBehaviour
 {
-    [SerializeField] private Selection[] selections = new Selection[40];
+    /// <summary>
+    /// Represents an array of RecipeItem objects used for selection.
+    /// </summary>
+    [SerializeField] private RecipeItem[] selections = new RecipeItem[40];
     [SerializeField] private RectTransform contents;
 
     private List<int> recipeFound;

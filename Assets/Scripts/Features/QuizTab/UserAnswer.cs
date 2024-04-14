@@ -2,6 +2,9 @@ using System.Linq;
 
 namespace Cocktailor
 {
+    /// <summary>
+    /// Represents a user's answer to a cocktail recipe quiz.
+    /// </summary>
     public class UserAnswer
     {
         public int GlasswareIndex = -1, GarnishIndex = -1, MethodIndex = -1;

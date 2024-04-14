@@ -4,16 +4,17 @@ using VoxelBusters.EssentialKit;
 
 namespace Cocktailor
 {
+    /// <summary>
+    /// Mmanages subscriptions and purchases for the application.
+    /// </summary>
     public class SubscriptionManager : MonoBehaviour, IStoreListener
     {
-        public GameObject loading;
-        public GameObject[] locks;
-        public GameObject pro, lite;
-        public RecipeViewerManager main;
+        [SerializeField] private GameObject loading;
+        [SerializeField] private GameObject[] locks;
+        [SerializeField] private GameObject pro, lite;
+        [SerializeField] private RecipeViewerPanel main;
 
         private bool IsInitialized;
-        //IStoreController m_StoreController;
-
         private IStoreController storeController;
         private IExtensionProvider storeExtensionProvider;
 
@@ -21,11 +22,6 @@ namespace Cocktailor
         {
             InitializePurchasing();
         }
-
-        //public void BuySubscription()
-        //{
-        //    m_StoreController.InitiatePurchase(subscriptionProductId);
-        //}
 
         public void OnInitialized(IStoreController controller, IExtensionProvider extension)
         {
@@ -81,9 +77,8 @@ namespace Cocktailor
                 dialog.Message = "칵테일러Pro를 구독해주셔서 감사합니다!\n이용하시면서 불편한 점이나 추가로 필요한 기능이 있으시면 언제든지 문의해 주세요.";
                 dialog.AddButton("확인", () =>
                 {
-                    //Debug.Log("Yes button clicked");
                 });
-                dialog.Show(); //Show the dialog
+                dialog.Show();
             }
             else if (args.purchasedProduct.definition.id == PrivateData.productIDSubscription_year)
             {
@@ -98,12 +93,10 @@ namespace Cocktailor
                 dialog.Message = "칵테일러Pro를 구독해주셔서 감사합니다!\n이용하시면서 불편한 점이나 추가로 필요한 기능이 있으시면 언제든지 문의해 주세요.";
                 dialog.AddButton("확인", () =>
                 {
-                    //Debug.Log("Yes button clicked");
                 });
-                dialog.Show(); //Show the dialog
+                dialog.Show();
             }
-
-            // We return Complete, informing IAP that the processing on our side is done and the transaction can be closed.
+            
             loading.SetActive(false);
             return PurchaseProcessingResult.Complete;
         }
@@ -151,35 +144,12 @@ namespace Cocktailor
             }
         }
 
-        //bool IsSubscribedTo(Product subscription)
-        //{
-        //    // If the product doesn't have a receipt, then it wasn't purchased and the user is therefore not subscribed.
-        //    if (subscription.receipt == null)
-        //    {
-        //        return false;
-        //    }
-
-        //    //The intro_json parameter is optional and is only used for the App Store to get introductory information.
-        //    var subscriptionManager = new SubscriptionManager(subscription, null);
-
-        //    // The SubscriptionInfo contains all of the information about the subscription.
-        //    // Find out more: https://docs.unity3d.com/Packages/com.unity.purchasing@3.1/manual/UnityIAPSubscriptionProducts.html
-        //    var info = subscriptionManager.getSubscriptionInfo();
-
-        //    return info.isSubscribed() == Result.True;
-        //}
-
         private bool IsSubscribedTo(string productId)
         {
             var subscription = storeController.products.WithID(productId);
-            // If the product doesn't have a receipt, then it wasn't purchased and the user is therefore not subscribed.
             if (subscription.receipt == null) return false;
 
-            //The intro_json parameter is optional and is only used for the App Store to get introductory information.
             var subscriptionManager = new UnityEngine.Purchasing.SubscriptionManager(subscription, null);
-
-            // The SubscriptionInfo contains all of the information about the subscription.
-            // Find out more: https://docs.unity3d.com/Packages/com.unity.purchasing@3.1/manual/UnityIAPSubscriptionProducts.html
             var info = subscriptionManager.getSubscriptionInfo();
 
             return info.isSubscribed() == Result.True;

@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace Cocktailor
 {
+    /// <summary>
+    /// Manages the icons for cocktails.
+    /// </summary>
     public class CocktailIconManager : MonoBehaviour
     {
         [SerializeField] private Sprite[] iconSprites;

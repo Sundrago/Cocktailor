@@ -4,23 +4,30 @@ using UnityEngine.SceneManagement;
 
 namespace Cocktailor
 {
+    /// <summary>
+    /// Manages scene transitions and provides a method to indicate when the transition is ready.
+    /// </summary>
+    /// 
     public class SceneTransitionManager : MonoBehaviour
     {
-        public string SceneName;
-        public GameObject loadingImage;
-        public bool transitionReady;
-        private Animator gameObjectAnimator;
-        private Animator loadingImageAnimator;
-        private bool sceneLoadCompleted;
-        private bool transitionCompleted;
+        [SerializeField] private GameObject loadingImage;
+        [SerializeField] private string SceneName;
+        
+        private Animator gameObjectAnimator, loadingImageAnimator;
+        private bool sceneLoadCompleted, transitionCompleted, transitionReady;
+
+        private static readonly int Play = Animator.StringToHash("play");
+        private static readonly int TransitionFinished = Animator.StringToHash("transitionFinished");
+        private static readonly int Pause = Animator.StringToHash("pause");
 
         private void Start()
         {
-            if (SceneName == "") return;
+            if (string.IsNullOrEmpty(SceneName)) return;
+            
             gameObjectAnimator = gameObject.GetComponent<Animator>();
-            gameObjectAnimator.SetTrigger("play");
+            gameObjectAnimator.SetTrigger(Play);
             loadingImageAnimator = loadingImage.GetComponent<Animator>();
-            loadingImageAnimator.SetTrigger("play");
+            loadingImageAnimator.SetTrigger(Play);
             LoadScene();
         }
 
@@ -37,8 +44,8 @@ namespace Cocktailor
             {
                 if ((loadOperation.progress >= 0.99f) & !sceneLoadCompleted & (Time.time > 1f))
                 {
-                    gameObjectAnimator.SetTrigger("transitionFinished");
-                    loadingImageAnimator.SetTrigger("pause");
+                    gameObjectAnimator.SetTrigger(TransitionFinished);
+                    loadingImageAnimator.SetTrigger(Pause);
                     sceneLoadCompleted = true;
                 }
 

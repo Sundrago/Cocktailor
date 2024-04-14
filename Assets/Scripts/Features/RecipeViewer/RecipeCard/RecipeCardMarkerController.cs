@@ -3,27 +3,25 @@ using UnityEngine.Serialization;
 
 namespace Cocktailor
 {
+    /// <summary>
+    /// Controls the marker state and behavior of the recipe card in the user interface.
+    /// </summary>
     public class RecipeCardMarkerController : MonoBehaviour
     {
         private static readonly int StateHidden = Animator.StringToHash("StateHidden");
         private static readonly int TriggerHide = Animator.StringToHash("TriggerHide");
         private static readonly int TriggerShow = Animator.StringToHash("TriggerShow");
         private static readonly int StateShown = Animator.StringToHash("StateShown");
+        
+        [Header("Managers and Controllers")]
         [SerializeField] private SfxManager sfxManager;
+        [SerializeField] private RecipeViewerPanel recipeViewerPanel;
         [SerializeField] private Animator oMarkAnimator;
         [SerializeField] private Animator xMarkAnimator;
 
-        [FormerlySerializedAs("mainControl")] [SerializeField]
-        private RecipeViewerManager recipeViewerManager;
-
         private int currentCocktailIndex;
         private MemorizedState currentState;
-
-        private void OnDestroy()
-        {
-            PlayerData.OnuserMemorizedStatehange -= UpdateMarkerUI;
-        }
-
+        
         public void InitializeMarker(int index)
         {
             currentCocktailIndex = index;
@@ -90,6 +88,11 @@ namespace Cocktailor
                 oMarkAnimator.SetTrigger(StateHidden);
                 xMarkAnimator.SetTrigger(StateHidden);
             }
+        }
+        
+        private void OnDestroy()
+        {
+            PlayerData.OnuserMemorizedStatehange -= UpdateMarkerUI;
         }
     }
 }

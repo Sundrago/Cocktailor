@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace Cocktailor
 {
+    /// <summary>
+    /// Manages the state and layout of the bottom UI.
+    /// </summary>
     public class BottomUIStateManager : MonoBehaviour
     {
         public enum BottomUILayout
@@ -22,7 +25,7 @@ namespace Cocktailor
         private void Start()
         {
             PlayerData.OnuserMemorizedStatehange += UpdateRecipeCountDisplay;
-            QuizManager.Instance.OnQuizCardIndexChange += UpdateQuizButtonText;
+            QuizPanel.Instance.OnQuizCardIndexChange += UpdateQuizButtonText;
 
             UpdateRecipeCountDisplay(0, 0);
         }

@@ -11,6 +11,9 @@ namespace Cocktailor
         TwoButtons
     }
 
+    /// <summary>
+    /// Responsible for displaying and handling pop-up messages.
+    /// </summary>
     public class PopupBoxManager : MonoBehaviour
     {
         [SerializeField] private GameObject confirmButton;

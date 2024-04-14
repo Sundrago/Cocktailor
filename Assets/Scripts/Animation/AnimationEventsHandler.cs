@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Cocktailor
 {
@@ -11,7 +10,7 @@ namespace Cocktailor
     public class AnimationEventsHandler : MonoBehaviour
     {
         [SerializeField] private GameObject targetObject;
-        [FormerlySerializedAs("prnt")] [SerializeField] private GameObject parentObject;
+        [SerializeField] private GameObject parentObject;
         
         public Action StandaloneAction
         {
@@ -38,7 +37,7 @@ namespace Cocktailor
             parentObject = parent;
         }
         
-        public void DestroyP()
+        public void DestroyParent()
         {
             Destroy(parentObject);
         }
