@@ -3,11 +3,11 @@
 :---:|:---:|:---:
 
 <p align="center"><a href="https://apple.co/3ijIa9V">
-<img src="https://github.com/Sundrago/Cocktailor/blob/15a867f85fc3829dc0730dccfe3db2180e624dce/Docs/appstore.png" width="250"">
+<img src="https://github.com/Sundrago/Cocktailor/blob/15a867f85fc3829dc0730dccfe3db2180e624dce/Docs/appstore.png" width="220"">
 </a></p>
 
 <p align="center"><a href="https://play.google.com/store/apps/details?id=net.sundragon.cocktail">
-<img src="https://github.com/Sundrago/Cocktailor/blob/15a867f85fc3829dc0730dccfe3db2180e624dce/Docs/playstore.png" width="250"">
+<img src="https://github.com/Sundrago/Cocktailor/blob/15a867f85fc3829dc0730dccfe3db2180e624dce/Docs/playstore.png" width="220"">
 </a></p>
 
 &nbsp;
@@ -34,4 +34,13 @@
 - 조주기능사 자격증 시험 공부하면서 칵테일 레시피를 위한 암기장이 없어 직접 개발되었습니다. 처음에는 무료 레시피를 제공하는 간단한 앱이었지만, 사용자들의 긍정적인 반응과 피드백을 바탕으로 '가상 시험'과 '암기 노트' 등의 기능을 추가하여 부분 유료 앱으로 전환했습니다.
 - 지속적인 업데이트를 통해 수험생들이 필요로 하는 기능들을 갖추게 되면서 조주기능사 자격증 시험 준비하는 수험생들 사이에서 인기를 얻고 있습니다.
 
-## 게임 플레이
+&nbsp;
+<hr>
+&nbsp;
+
+
+![](https://github.com/Sundrago/Cocktailor/blob/24365d5bd2aa754f2ea8e12365fe06e225134654/Docs/01_1.jpeg) | ![](https://github.com/Sundrago/Cocktailor/blob/24365d5bd2aa754f2ea8e12365fe06e225134654/Docs/01.gif) | ![](https://github.com/Sundrago/Cocktailor/blob/24365d5bd2aa754f2ea8e12365fe06e225134654/Docs/01_2.jpeg)
+:---:|:---:|:---:
+
+#### 레시피 카드
+> 조주기능사 실기 시험 출제 범위에 해당하는 40종의 레시피를 암기 카드 형태로 넘겨서 볼 수 있습니다. 각 칵테일 별로 일러스트 이미지를 제공하며, 글라스/기법/가니쉬/레시피를 한눈에 볼 수 있도록 디자인하였습니다.
