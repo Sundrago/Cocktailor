@@ -3,47 +3,9 @@ using UnityEngine;
 
 namespace Cocktailor
 {
-    public class RecipeCardManager : MonoBehaviour
+    public class RecipeCardData
     {
-        [SerializeField] private RecipeCardController recipeCardObjectPrefab;
-        [SerializeField] private Transform panel_holder;
-        public static RecipeCardManager Instance { get; private set; }
-
-        public RecipeCardController CurrentRecipeCard { get; private set; }
-        // private Action<int, bool> OnOXMarkButtonClicked;
-
-        private void Awake()
-        {
-            Instance = this;
-        }
-
-        public RecipeCardController OpenCard(CardInfo cardInfo)
-        {
-            CloseExistingCardIfAny();
-            CreateAndSetupNewRecipeCard(cardInfo);
-            MenuUIManager.Instance.HideMenuInterface();
-            return CurrentRecipeCard;
-        }
-
-        private void CreateAndSetupNewRecipeCard(CardInfo cardInfo)
-        {
-            CurrentRecipeCard = Instantiate(recipeCardObjectPrefab, panel_holder);
-            CurrentRecipeCard.UpdateCocktailInfo(cardInfo);
-            CurrentRecipeCard.ShowAllTabs(cardInfo.IsMemoryTabsAllOpen, true);
-            CurrentRecipeCard.panelAnimControl.PlayAnim(cardInfo.AnimationType);
-            CurrentRecipeCard.DragEventManager.OnSwipeEvent += cardInfo.OnCardSwipeEvent;
-        }
-
-        private void CloseExistingCardIfAny()
-        {
-            if (CurrentRecipeCard == null || CurrentRecipeCard.panelAnimControl.IsBeingScrolled) return;
-            CurrentRecipeCard.panelAnimControl.PlayAnim(CardAnimationType.OutFromRight);
-        }
-    }
-
-    public class CardInfo
-    {
-        public CardInfo(
+        public RecipeCardData(
             int recipeIndex,
             int cardIndex = 1,
             int cardMaxIndex = 1,
@@ -65,5 +27,42 @@ namespace Cocktailor
         public CardAnimationType AnimationType { get; }
         public bool IsMemoryTabsAllOpen { get; }
         public Action<SwipeEventType> OnCardSwipeEvent { get; }
+    }
+    
+    public class RecipeCardManager : MonoBehaviour
+    {
+        [SerializeField] private RecipeCardController recipeCardObjectPrefab;
+        [SerializeField] private Transform panel_holder;
+        public static RecipeCardManager Instance { get; private set; }
+        public RecipeCardController CurrentRecipeCard { get; private set; }
+        // private Action<int, bool> OnOXMarkButtonClicked;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+
+        public RecipeCardController OpenCard(RecipeCardData recipeCardData)
+        {
+            CloseExistingCardIfAny();
+            CreateAndSetupNewRecipeCard(recipeCardData);
+            MenuUIManager.Instance.HideMenuInterface();
+            return CurrentRecipeCard;
+        }
+
+        private void CreateAndSetupNewRecipeCard(RecipeCardData recipeCardData)
+        {
+            CurrentRecipeCard = Instantiate(recipeCardObjectPrefab, panel_holder);
+            CurrentRecipeCard.UpdateCocktailInfo(recipeCardData);
+            CurrentRecipeCard.ShowAllTabs(recipeCardData.IsMemoryTabsAllOpen, true);
+            CurrentRecipeCard.panelAnimControl.PlayAnim(recipeCardData.AnimationType);
+            CurrentRecipeCard.RecipeCardSwipeHandler.OnSwipeEvent += recipeCardData.OnCardSwipeEvent;
+        }
+
+        private void CloseExistingCardIfAny()
+        {
+            if (CurrentRecipeCard == null || CurrentRecipeCard.panelAnimControl.IsBeingScrolled) return;
+            CurrentRecipeCard.panelAnimControl.PlayAnim(CardAnimationType.OutFromRight);
+        }
     }
 }

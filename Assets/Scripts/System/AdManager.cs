@@ -16,7 +16,7 @@ namespace Cocktailor
         [FormerlySerializedAs("mainControl")] [SerializeField]
         private RecipeViewerManager recipeViewerManager;
 
-        [SerializeField] private QuizManager quizManager;
+        [FormerlySerializedAs("quizTabManager")] [SerializeField] private QuizManager quizManager;
 
         private AdType adType;
         private InterstitialAd interstitial;

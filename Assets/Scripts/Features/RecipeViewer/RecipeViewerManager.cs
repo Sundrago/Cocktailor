@@ -17,7 +17,7 @@ namespace Cocktailor
         [SerializeField] private SfxManager sfxManager;
         [SerializeField] private SettingsManager settingsPanel;
 
-        [Header("UI Components")] [SerializeField]
+        [Header("QuizCard Components")] [SerializeField]
         private Dropdown rangeSelectorDropdown;
 
         [SerializeField] private ScrollRect selectionScrollRect;
@@ -129,7 +129,7 @@ namespace Cocktailor
         {
             // gameObject.GetComponent<TutorialControl>().UpdateStatus(1);
 
-            var cardInfo = new CardInfo(
+            var cardInfo = new RecipeCardData(
                 recipeSelectionList[currentSelectionIndex],
                 selectionIndex,
                 recipeSelectionList.Count,

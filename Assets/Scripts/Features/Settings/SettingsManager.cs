@@ -20,7 +20,7 @@ namespace Cocktailor
         [FormerlySerializedAs("mainControl")] [SerializeField]
         private RecipeViewerManager recipeViewerManager;
 
-        [SerializeField] private SubscriptionOverviewCarousel subscriptionOverviewCarousel;
+        [FormerlySerializedAs("subscriptionOverviewCarousel")] [SerializeField] private SubscriptionCarousel subscriptionCarousel;
 
         private Vector3 originalPos;
 
@@ -130,7 +130,7 @@ namespace Cocktailor
                 .SetEase(Ease.OutCirc);
             subscriptionPanel.SetActive(true);
             sfxManager.PlaySfx(3);
-            subscriptionOverviewCarousel.HighlightImage(0);
+            subscriptionCarousel.HighlightImage(0);
         }
 
         public void CloseCocktailorPro()

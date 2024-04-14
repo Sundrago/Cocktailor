@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum TabOptions
 {
@@ -18,10 +19,10 @@ namespace Cocktailor
         [Header("Managers and Controllers")] [SerializeField]
         private RecipeViewerManager recipeViewerManager;
 
-        [SerializeField] private QuizManager quizManager;
+        [FormerlySerializedAs("quizTabManager")] [SerializeField] private QuizManager quizManager;
         [SerializeField] private SfxManager sfxManager;
 
-        [Header("UI Elements")] [SerializeField]
+        [Header("QuizCard Elements")] [SerializeField]
         private GameObject MainPanel, SearchPanel, TestPanel, MoaPanel, SettingsPanel;
 
         [SerializeField] private GameObject[] tabButtons = new GameObject[6];

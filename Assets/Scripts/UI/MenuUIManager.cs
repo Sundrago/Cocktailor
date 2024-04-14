@@ -4,15 +4,15 @@ namespace Cocktailor
 {
     public class MenuUIManager : MonoBehaviour
     {
-        private static readonly int Menu = Animator.StringToHash("menu");
-        private static readonly int Hide = Animator.StringToHash("hide");
-        private static readonly int Back = Animator.StringToHash("back");
-        private static readonly int Show = Animator.StringToHash("show");
-
         [SerializeField] private Animator menuPanelAnimator;
         [SerializeField] private Animator menuButtonAnimator;
         [SerializeField] private SfxManager sfxManager;
         [SerializeField] private AdManager adManager;
+        
+        private static readonly int Menu = Animator.StringToHash("menu");
+        private static readonly int Hide = Animator.StringToHash("hide");
+        private static readonly int Back = Animator.StringToHash("back");
+        private static readonly int Show = Animator.StringToHash("show");
 
         private bool isMenuVisible;
         public static MenuUIManager Instance { get; private set; }
