@@ -8,6 +8,7 @@
 !/Assets/Resources/**
 !/ProjectSettings/**
 !/Packages/**
+!/Docs/**
 
 # ignore private keys.
 PrivateData.cs
