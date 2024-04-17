@@ -12,5 +12,6 @@
 
 # ignore private keys.
 PrivateData.cs
+!/Assets/Scripts/StreamingAssets
 
 
