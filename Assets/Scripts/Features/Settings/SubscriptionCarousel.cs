@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SubscriptionCarousel : MonoBehaviour
 {
     [SerializeField] private GameObject scrollbar;
-    [SerializeField] private Image[] previewImage;
+    [SerializeField] private Image[] previewImage, dots;
     
     private float beginScrollValue, endScrollValue;
     private int currentIndex;
@@ -46,9 +46,11 @@ public class SubscriptionCarousel : MonoBehaviour
     public void HighlightImage(int idx)
     {
         currentIndex = idx;
-        for (var i = 0; i < previewImage.Length; i++)
-            if (i != idx) previewImage[i].DOFade(0.3f, 0.5f);
-            else previewImage[i].DOFade(1f, 0.5f);
+        for (int i = 0; i < dots.Length; i++)
+        {
+            if (i != idx) dots[i].DOFade(0.3f, 0.5f);
+            else dots[i].DOFade(1f, 0.5f);
+        }
     }
 
     private float[] CalculatePositions()
@@ -88,9 +90,8 @@ public class SubscriptionCarousel : MonoBehaviour
                     if (scrollbarValue < positions[i] + distance / 2 && scrollbarValue > positions[i] - distance / 2)
                         currentIndex = i;
             }
+            HighlightImage(currentIndex);
         }
-
-        HighlightImage(currentIndex);
         scrollbarComponent.value = Mathf.Lerp(scrollbarComponent.value, positions[currentIndex], 0.1f);
     }
 

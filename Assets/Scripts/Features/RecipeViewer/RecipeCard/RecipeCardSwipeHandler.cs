@@ -84,25 +84,27 @@ namespace Cocktailor
         private void HandleSwipeRight()
         {
             var diff = (targetPosition - defaultPosition) * 2.5f;
-            targetSize = 2 / 3f;
+            targetSize = 1 / 5f;
             targetPosition = transform.position + diff;
             shouldBeDestroyed = true;
 
             if (targetPosition.x < Screen.width + Screen.width / 3f)
-                targetPosition = new Vector3(Screen.width + Screen.width / 3f, targetPosition.y, 0);
+                targetPosition = new Vector3(Screen.width, targetPosition.y, 0);
             OnSwipeEvent?.Invoke(SwipeEventType.SwipeRight);
+            print(targetPosition.x);
         }
 
         private void HandleSwipeLeft()
         {
             var diff = (targetPosition - defaultPosition) * 2.5f;
-            targetSize = 2 / 3f;
+            targetSize = 0;
             targetPosition = transform.position + diff;
             shouldBeDestroyed = true;
 
-            if (targetPosition.x > -Screen.width / 3f)
-                targetPosition = new Vector3(-Screen.width / 3f, targetPosition.y, 0);
+            // if (targetPosition.x > -Screen.width / 3f)
+            //     targetPosition = new Vector3(-Screen.width * 1.2f, targetPosition.y, 0);
             OnSwipeEvent?.Invoke(SwipeEventType.SwipeLeft);
+            print(targetPosition.x);
         }
 
         private void BackToCenter()
@@ -127,7 +129,7 @@ namespace Cocktailor
         private bool IsAnimationFinished()
         {
             var dist = Vector3.Distance(transform.position, targetPosition);
-            return dist <= 1.1f;
+            return dist <= 0.1f;
         }
 
         private void HandleDestruction()

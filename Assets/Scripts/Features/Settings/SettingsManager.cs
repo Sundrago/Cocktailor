@@ -2,7 +2,6 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
-using VoxelBusters.EssentialKit;
 
 namespace Cocktailor
 {
@@ -50,9 +49,9 @@ namespace Cocktailor
         {
             if (PlayerPrefs.GetInt("resolutionDeviceType") != resolutionDropdown.value)
             {
-                var dialog = AlertDialog.CreateInstance();
-                dialog.Title = "경고";
-                dialog.Message = "바뀐 해상도 설정을 유지할까요?";
+                var dialog = AlertDialog.Instance.CreateInstance();
+                dialog.SetTitle("경고");
+                dialog.SetMessage("바뀐 해상도 설정을 유지할까요?");
 
                 dialog.AddButton("네", () => { PlayerPrefs.SetInt("resolutionDeviceType", resolutionDropdown.value); });
 
@@ -102,9 +101,9 @@ namespace Cocktailor
 
         public void ResetData()
         {
-            var dialog = AlertDialog.CreateInstance();
-            dialog.Title = "경고";
-            dialog.Message = "데이터를 초기화하고 앱을 재실행할까요?";
+            var dialog = AlertDialog.Instance.CreateInstance();
+            dialog.SetTitle("경고");
+            dialog.SetMessage("데이터를 초기화하고 앱을 재실행할까요?");
 
             dialog.AddButton("네", () =>
             {
@@ -166,7 +165,6 @@ namespace Cocktailor
         public void Review()
         {
             sfxManager.PlaySfx(3);
-            Utilities.RequestStoreReview();
 #if UNITY_ANDROID
     Application.OpenURL("market://details?id=net.sundragon.cocktail");
 #elif UNITY_IPHONE

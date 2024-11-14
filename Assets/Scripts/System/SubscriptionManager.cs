@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Purchasing;
-using VoxelBusters.EssentialKit;
 
 namespace Cocktailor
 {
@@ -72,9 +71,9 @@ namespace Cocktailor
                 PlayerPrefs.Save();
                 UpdateLocks();
 
-                var dialog = AlertDialog.CreateInstance();
-                dialog.Title = "구독성공";
-                dialog.Message = "칵테일러Pro를 구독해주셔서 감사합니다!\n이용하시면서 불편한 점이나 추가로 필요한 기능이 있으시면 언제든지 문의해 주세요.";
+                var dialog = AlertDialog.Instance.CreateInstance();
+                dialog.SetTitle("구독성공");
+                dialog.SetMessage("칵테일러Pro를 구독해주셔서 감사합니다!\n이용하시면서 불편한 점이나 추가로 필요한 기능이 있으시면 언제든지 문의해 주세요.");
                 dialog.AddButton("확인", () =>
                 {
                 });
@@ -88,9 +87,9 @@ namespace Cocktailor
                 PlayerPrefs.Save();
                 UpdateLocks();
 
-                var dialog = AlertDialog.CreateInstance();
-                dialog.Title = "구독성공";
-                dialog.Message = "칵테일러Pro를 구독해주셔서 감사합니다!\n이용하시면서 불편한 점이나 추가로 필요한 기능이 있으시면 언제든지 문의해 주세요.";
+                var dialog = AlertDialog.Instance.CreateInstance();
+                dialog.SetTitle("구독성공");
+                dialog.SetMessage("칵테일러Pro를 구독해주셔서 감사합니다!\n이용하시면서 불편한 점이나 추가로 필요한 기능이 있으시면 언제든지 문의해 주세요.");
                 dialog.AddButton("확인", () =>
                 {
                 });
