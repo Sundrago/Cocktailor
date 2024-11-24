@@ -2,10 +2,10 @@
   "dependencies": {
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ads.ios-support": "1.2.0",
-    "com.unity.collab-proxy": "2.1.0",
+    "com.unity.collab-proxy": "2.2.0",
     "com.unity.ide.rider": "3.0.28",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
-    "com.unity.purchasing": "4.9.3",
+    "com.unity.purchasing": "4.12.2",
     "com.unity.test-framework": "1.1.33",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.ugui": "1.0.0",
@@ -28,16 +28,5 @@
     "com.unity.modules.unitywebrequestaudio": "1.0.0",
     "com.unity.modules.unitywebrequesttexture": "1.0.0",
     "com.unity.modules.unitywebrequestwww": "1.0.0"
-  },
-  "scopedRegistries": [
-    {
-      "name": "npmjs",
-      "url": "https://registry.npmjs.org/",
-      "scopes": [
-        "com.voxelbusters.corelibrary",
-        "com.voxelbusters.corelibrary.nativeplugins",
-        "com.voxelbusters.parser"
-      ]
-    }
-  ]
+  }
 }

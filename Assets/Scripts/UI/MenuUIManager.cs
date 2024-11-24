@@ -17,18 +17,13 @@ namespace Cocktailor
         private static readonly int Back = Animator.StringToHash("back");
         private static readonly int Show = Animator.StringToHash("show");
 
-        private bool isMenuVisible;
+        private bool isMenuVisible = false;
         
         public static MenuUIManager Instance { get; private set; }
 
         private void Awake()
         {
             Instance = this;
-        }
-
-        private void Start()
-        {
-            HideMenuInterface();
         }
 
         public void HandleMenuButtonClick()

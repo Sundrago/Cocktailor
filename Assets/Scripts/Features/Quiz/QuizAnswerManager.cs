@@ -61,12 +61,17 @@ namespace Cocktailor
             {
                 // gameObject.GetComponent<AdManager>().ShowRewardAds(AdManager.AdType.CheckQuiz, i);
                 //NEED TO IMPLEMENT
-                answerReady[i] = true;
-                UpdateAnswerButtonState();
-                return;
+                AdManager.Instance.ShowAds(AdManager.AdType.RewardedAd, () =>
+                {
+                    answerReady[i] = true;
+                    UpdateAnswerButtonState();
+                });
+            }
+            else
+            {
+                OpenQuizCard(i);
             }
 
-            OpenQuizCard(i);
         }
 
         private void SetReviewState(ReviewState reviewState)

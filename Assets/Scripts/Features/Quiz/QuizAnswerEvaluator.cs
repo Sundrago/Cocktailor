@@ -19,6 +19,7 @@ namespace Cocktailor
 
             var maxScore = GetMaxScore(currentRecipe);
             var finalScore = Mathf.RoundToInt((maxScore + scoreDeduction) / (float)maxScore * 100);
+            finalScore = Mathf.Clamp(finalScore, 0,100);
             return finalScore;
         }
 

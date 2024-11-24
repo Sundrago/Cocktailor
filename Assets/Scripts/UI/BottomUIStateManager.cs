@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace Cocktailor
 
         [SerializeField] private List<GameObject> uiLayoutGroups;
         [SerializeField] private Text notMemorizedCountText, memorizedCountText;
-        [SerializeField] private Button memorizedButton, notMemorizedButton;
+        [SerializeField] private Button memorizedButton, notMemorizedButton, qLeftButton, qRightButton;
         [SerializeField] private Text quizLeftButtonText, quizRightButtonText;
 
         private void Start()

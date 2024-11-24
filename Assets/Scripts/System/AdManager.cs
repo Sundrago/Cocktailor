@@ -15,35 +15,68 @@ namespace Cocktailor
             InterstitialAd,
             RewardedAd
         }
+
+        public static AdManager Instance;
         
         [SerializeField] private RecipeViewerPanel recipeViewerPanel; 
         [SerializeField] private QuizPanel quizPanel;
 
         private AdType adType;
         private InterstitialAd interstitial;
-        private float lastAdShownTime;
         private Action onAdWatch;
         private int quizIndex;
         private RewardedAd rewardedAd;
         private RewardedInterstitialAd rewardedInterstitialAd;
+        private int dailyAdCount, useDateCount;
+        private DateTime adShownTime;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         private void Start()
         {
             MobileAds.Initialize(initStatus => { });
             LoadInterstitialAd();
             LoadRewardAds();
+        }
 
-            lastAdShownTime = Time.time;
+        private void InitAdCount()
+        {
+            //initial launch
+            if (!PlayerPrefs.HasKey("lastUpdateTime"))
+            {
+                dailyAdCount = 0;
+                useDateCount = 1;
+                PlayerPrefs.SetString("lastUpdateTime", Utility.DateTimeToString(DateTime.Now));
+            }
+
+            DateTime lastUpdateTime = Utility.StringToDateTime(PlayerPrefs.GetString("lastUpdateTime"));
+            if (lastUpdateTime.Date != DateTime.Now.Date)
+            {
+                dailyAdCount = 0;
+                useDateCount = PlayerPrefs.GetInt("useDateCount", 1);
+                useDateCount += 1;
+                PlayerPrefs.SetString("lastUpdateTime", Utility.DateTimeToString(DateTime.Now));
+            }
         }
 
         public void ShowAds(AdType adType, Action onAdWatch)
         {
             this.onAdWatch = onAdWatch;
 
+            if (PlayerPrefs.GetInt("subscribed") == 1)
+            {
+                OnRewardFinished();
+                return;
+            }
+            
             if (adType == AdType.RewardedAd)
             {
                 if (rewardedAd.IsLoaded())
                 {
+                    PlayerPrefs.SetString("adShownTime", Utility.DateTimeToString(adShownTime));
                     rewardedAd.Show();
                 }
                 else
@@ -51,11 +84,20 @@ namespace Cocktailor
                     OnRewardFinished();
                     LoadRewardAds();
                 }
+                return;
             }
-            else if (adType == AdType.InterstitialAd)
+            
+            if (adType == AdType.InterstitialAd)
             {
+                if (!ShouldShowAd())
+                {
+                    OnRewardFinished();
+                    return;
+                }
+                
                 if (interstitial.IsLoaded())
                 {
+                    UpdateAdShowCount();
                     interstitial.Show();
                 }
                 else
@@ -64,6 +106,50 @@ namespace Cocktailor
                     LoadInterstitialAd();
                 }
             }
+        }
+
+        private void UpdateAdShowCount()
+        {
+            this.onAdWatch = onAdWatch;
+            adShownTime = DateTime.Now;
+            dailyAdCount += 1;
+            
+            PlayerPrefs.SetString("adShownTime", Utility.DateTimeToString(adShownTime));
+            PlayerPrefs.SetInt("dailyAdCount",dailyAdCount);
+            PlayerPrefs.SetInt("useDateCount",useDateCount);
+            PlayerPrefs.Save();
+        }
+
+        private bool ShouldShowAd()
+        {
+            int minimumInterval = GetMinimumInterval();
+            int maxADCount = GetMaxADCount();
+
+            if (Time.time < 60)
+                return false;
+            
+            TimeSpan timespan = DateTime.Now - adShownTime;
+            if (timespan.Minutes < minimumInterval)
+                return false;
+
+            if (dailyAdCount >= maxADCount)
+                return false;
+            
+            return true;
+        }
+
+        private int GetMaxADCount()
+        {
+            float dateNormal = useDateCount / 10;
+            dateNormal = Mathf.Clamp(dateNormal, 0, 1);
+            return Mathf.RoundToInt(Mathf.Lerp(10, 50, dateNormal));
+        }
+
+        private int GetMinimumInterval()
+        {
+            float dateNormal = useDateCount / 10;
+            dateNormal = Mathf.Clamp(dateNormal, 0, 1);
+            return Mathf.RoundToInt(Mathf.Lerp(10, 1, dateNormal));
         }
 
         private void OnRewardFinished()

@@ -1,5 +1,7 @@
 using UnityEngine;
+#if UNITY_IPHONE
 using UnityEngine.iOS;
+#endif
 
 namespace Cocktailor
 {
@@ -33,7 +35,7 @@ namespace Cocktailor
         public void RequestStoreReview()
         {
 #if UNITY_ANDROID
-        OpenURL(PrivateData.PlayStoreURL);
+            Application.OpenURL(PrivateData.PlayStoreURL);
 #elif UNITY_IOS
             Device.RequestStoreReview();
             Application.OpenURL(PrivateData.AppStoreURL);

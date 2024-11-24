@@ -91,7 +91,6 @@ namespace Cocktailor
             if (targetPosition.x < Screen.width + Screen.width / 3f)
                 targetPosition = new Vector3(Screen.width, targetPosition.y, 0);
             OnSwipeEvent?.Invoke(SwipeEventType.SwipeRight);
-            print(targetPosition.x);
         }
 
         private void HandleSwipeLeft()
@@ -104,7 +103,6 @@ namespace Cocktailor
             // if (targetPosition.x > -Screen.width / 3f)
             //     targetPosition = new Vector3(-Screen.width * 1.2f, targetPosition.y, 0);
             OnSwipeEvent?.Invoke(SwipeEventType.SwipeLeft);
-            print(targetPosition.x);
         }
 
         private void BackToCenter()

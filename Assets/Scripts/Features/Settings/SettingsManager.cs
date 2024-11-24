@@ -154,7 +154,9 @@ namespace Cocktailor
             var subject = MyEscapeURL("[칵테일러] 문의/건의사항/버그신고");
             var body = MyEscapeURL("[ " + SystemInfo.deviceModel + " | " + SystemInfo.operatingSystem + " | " +
                                    Application.version +
-                                   " ]\r\n\n 문의 건의사항을 언제나 환영합니다.\n버그의 경우 화면 캡쳐나 자세한 경로를 설명해주시면 빠른 해결이 가능합니다.");
+                                   " ]\r\n" +
+                                   // SubscriptionManager.Instance.GetReceipt() +
+                                   "\n\n 문의 건의사항을 언제나 환영합니다.\n버그의 경우 화면 캡쳐나 자세한 경로를 설명해주시면 빠른 해결이 가능합니다.");
 
             Application.OpenURL("mailto:" + email + "?subject=" + subject + "&body=" + body);
 #if UNITY_ANDROID

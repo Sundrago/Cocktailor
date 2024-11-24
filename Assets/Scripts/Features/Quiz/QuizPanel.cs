@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -44,8 +45,6 @@ namespace Cocktailor
             get => currentQuizCardIndex;
             set
             {
-                if (currentQuizCardIndex == value) return;
-
                 currentQuizCardIndex = value;
                 OnQuizCardIndexChange?.Invoke(value);
             }
@@ -236,6 +235,18 @@ namespace Cocktailor
             }
         }
 
+        public void QuizLrButtonClicked(bool isLeft)
+        {
+            if (isLeft)
+            {
+                quizCards[currentQuizCardIndex].RecipeCardSwipeHandler.SwipeLeft();
+            }
+            else
+            {
+                quizCards[currentQuizCardIndex].RecipeCardSwipeHandler.SwipeRight();
+            }
+        }
+
         private void OpenQuizCard(int i)
         {
             CurrentQuizCardIndex = i;
@@ -256,7 +267,7 @@ namespace Cocktailor
 
         private void RemoveQuizCards()
         {
-            foreach (var quizCard in quizCards) Destroy(quizCard);
+            foreach (var quizCard in quizCards) Destroy(quizCard.gameObject);
             quizCards.Clear();
         }
 
@@ -269,11 +280,14 @@ namespace Cocktailor
             timerDisplay.gameObject.SetActive(false);
             bottomUIStateManager.SwitchUILayout(BottomUIStateManager.BottomUILayout.QuizFinishedDisplayed);
 
-            foreach (var quizCard in quizCards)
+            DOVirtual.DelayedCall(1f, () =>
             {
-                quizCard.RecipeCardSwipeHandler.OnSwipeEvent -= ProcessSwipeEvent;
-                quizCard.QuizFinished();
-            }
+                foreach (var quizCard in quizCards)
+                {
+                    quizCard.RecipeCardSwipeHandler.OnSwipeEvent -= ProcessSwipeEvent;
+                    quizCard.QuizFinished();
+                }
+            });
 
             quizAnswerManager.UpdateTestResults(quizCards);
         }
@@ -286,7 +300,11 @@ namespace Cocktailor
                 return;
             }
 
-            PopupBoxManager.Instance.OpenPopup(PopupType.TwoButtons, "진행중인 시험이 있습니다.\n종료하시겠습니까?", QuitTest);
+            PopupBoxManager.Instance.OpenPopup(PopupType.TwoButtons, "진행중인 시험이 있습니다.\n종료하시겠습니까?", ()=>
+            {
+                QuitTest();
+                MenuUIManager.Instance.ShowMenuInterface();
+            });
         }
 
         public void PromptUserForQuizSubmission()

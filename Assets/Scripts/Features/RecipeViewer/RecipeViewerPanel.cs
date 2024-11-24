@@ -32,6 +32,7 @@ namespace Cocktailor
             currentSelectionIndex = 0;
             InitiateSelection();
             OpenCard(currentSelectionIndex, CardAnimationType.InFromLeft);
+            MenuUIManager.Instance.ShowMenuInterface();
 
             settingsPanel.Start();
         }
