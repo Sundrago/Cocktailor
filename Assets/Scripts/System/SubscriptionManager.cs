@@ -4,7 +4,7 @@ using UnityEngine.Purchasing;
 using UnityEngine.UI;
 using Unity.Services.Core;
 using Unity.Services.Core.Environments;
-
+using Sirenix.OdinInspector;
 
 namespace Cocktailor
 {
@@ -140,11 +140,12 @@ namespace Cocktailor
             return PurchaseProcessingResult.Complete;
         }
 
+        [Button]
         public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
         {
             loading.SetActive(false);
             PopupMessageManager.Instance.ShowMsg("구매실패");
-            Debug.LogWarning($"구매 실패 - {product.definition.id}, {failureReason}");
+            // Debug.LogWarning($"구매 실패 - {product.definition.id}, {failureReason}");
         }
 
         public void InitializePurchasing()
@@ -182,9 +183,9 @@ namespace Cocktailor
             
             buttonText[0].text = storeController.products.WithID(ItemType.Weekly.ToString()).metadata.localizedPriceString + "/주";
             buttonText[1].text = storeController.products.WithID(ItemType.Monthly.ToString()).metadata.localizedPriceString + "/월";
-            int discountRate = Mathf.RoundToInt(
-                (float)(storeController.products.WithID(ItemType.Weekly.ToString()).metadata.localizedPrice /
-                        storeController.products.WithID(ItemType.Monthly.ToString()).metadata.localizedPrice)); 
+            int discountRate = 100-Mathf.RoundToInt(
+                (float)(storeController.products.WithID(ItemType.Weekly.ToString()).metadata.localizedPrice * 4 /
+                        storeController.products.WithID(ItemType.Monthly.ToString()).metadata.localizedPrice) * 100f); 
             buttonText[2].text = "(첫 3일 무료 체험. 약 "+discountRate+"%할인)";
             buttonText[3].text = storeController.products.WithID(ItemType.Pro.ToString()).metadata.localizedPriceString + "/무기한";
         }
@@ -193,6 +194,7 @@ namespace Cocktailor
         {
             var subscription = storeController.products.WithID(productId);
             if (subscription.receipt == null) return false;
+            if (productId == ItemType.Pro.ToString()) return true;
 
             var subscriptionManager = new UnityEngine.Purchasing.SubscriptionManager(subscription, null);
             var info = subscriptionManager.getSubscriptionInfo();

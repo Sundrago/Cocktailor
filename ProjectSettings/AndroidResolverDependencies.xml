@@ -1,6 +1,8 @@
 <dependencies>
   <packages>
-    <package>com.google.android.gms:play-services-ads:20.6.0</package>
+    <package>androidx.constraintlayout:constraintlayout:2.1.4</package>
+    <package>com.google.android.gms:play-services-ads:23.0.0</package>
+    <package>com.google.android.ump:user-messaging-platform:2.2.0</package>
   </packages>
   <files />
   <settings>
@@ -8,7 +10,7 @@
     <setting name="bundleId" value="net.sundragon.cocktail" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
-    <setting name="gradlePropertiesTemplateEnabled" value="False" />
+    <setting name="gradlePropertiesTemplateEnabled" value="True" />
     <setting name="gradleTemplateEnabled" value="True" />
     <setting name="installAndroidPackages" value="True" />
     <setting name="localMavenRepoDir" value="Assets/GeneratedLocalRepo" />

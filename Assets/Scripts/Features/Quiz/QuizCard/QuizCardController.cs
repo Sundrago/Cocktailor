@@ -123,7 +123,7 @@ namespace Cocktailor
 
             userAnswer.UpdateAnswer(recipeType, selectedAnswer, firstChoiceIndex, secondChoiceIndex, ingredientIndex);
             UIManager.UpdateAnswerUI(recipeType, selectedAnswer, ingredientIndex);
-            ScoreUserAnswer();
+            // ScoreUserAnswer();
         }
 
         private bool ShouldRemoveIngredient(RecipeType recipeType, int choiceIndex)

@@ -287,9 +287,8 @@ namespace Cocktailor
                     quizCard.RecipeCardSwipeHandler.OnSwipeEvent -= ProcessSwipeEvent;
                     quizCard.QuizFinished();
                 }
+                quizAnswerManager.UpdateTestResults(quizCards);
             });
-
-            quizAnswerManager.UpdateTestResults(quizCards);
         }
 
         public void PromptUserForQuizExit()

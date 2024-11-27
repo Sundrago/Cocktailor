@@ -22,11 +22,11 @@ namespace Cocktailor
         [SerializeField] private QuizPanel quizPanel;
 
         private AdType adType;
-        private InterstitialAd interstitial;
+        private InterstitialAd interstitialAd;
         private Action onAdWatch;
         private int quizIndex;
         private RewardedAd rewardedAd;
-        private RewardedInterstitialAd rewardedInterstitialAd;
+        // private RewardedInterstitialAd rewardedInterstitialAd;
         private int dailyAdCount, useDateCount;
         private DateTime adShownTime;
 
@@ -40,6 +40,42 @@ namespace Cocktailor
             MobileAds.Initialize(initStatus => { });
             LoadInterstitialAd();
             LoadRewardAds();
+            
+            interstitialAd.OnAdFullScreenContentClosed += () =>
+            {
+                Debug.Log("Interstitial Ad full screen content closed.");
+
+                // Reload the ad so that we can show another as soon as possible.
+                LoadInterstitialAd();
+            };
+            // Raised when the ad failed to open full screen content.
+            interstitialAd.OnAdFullScreenContentFailed += (AdError error) =>
+            {
+                Debug.LogError("Interstitial ad failed to open full screen content " +
+                               "with error : " + error);
+
+                // Reload the ad so that we can show another as soon as possible.
+                LoadInterstitialAd();
+            };
+            
+            // Raised when the ad closed full screen content.
+            rewardedAd.OnAdFullScreenContentClosed += () =>
+            {
+                Debug.Log("Rewarded Ad full screen content closed.");
+
+                // Reload the ad so that we can show another as soon as possible.
+                LoadRewardAds();
+            };
+            // Raised when the ad failed to open full screen content.
+            rewardedAd.OnAdFullScreenContentFailed += (AdError error) =>
+            {
+                Debug.LogError("Rewarded ad failed to open full screen content " +
+                               "with error : " + error);
+
+                // Reload the ad so that we can show another as soon as possible.
+                LoadRewardAds();
+            };
+            
         }
 
         private void InitAdCount()
@@ -74,10 +110,13 @@ namespace Cocktailor
             
             if (adType == AdType.RewardedAd)
             {
-                if (rewardedAd.IsLoaded())
+                if (rewardedAd != null && rewardedAd.CanShowAd())
                 {
                     PlayerPrefs.SetString("adShownTime", Utility.DateTimeToString(adShownTime));
-                    rewardedAd.Show();
+                    rewardedAd.Show((Reward reward) =>
+                    {
+                        OnRewardFinished();
+                    });
                 }
                 else
                 {
@@ -94,11 +133,12 @@ namespace Cocktailor
                     OnRewardFinished();
                     return;
                 }
-                
-                if (interstitial.IsLoaded())
+
+                if (interstitialAd != null && interstitialAd.CanShowAd())
                 {
                     UpdateAdShowCount();
-                    interstitial.Show();
+                    interstitialAd.Show();
+                    OnRewardFinished();
                 }
                 else
                 {
@@ -168,14 +208,39 @@ namespace Cocktailor
             string adUnitId = "unexpected_platform";
 #endif
 
-            rewardedAd = new RewardedAd(adUnitId);
-            rewardedAd.OnAdFailedToShow += HandleRewardedAdFailedToShow;
-            rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;
-            var request = new AdRequest.Builder().Build();
-            rewardedAd.LoadAd(request);
+            // Clean up the old ad before loading a new one.
+            if (rewardedAd != null)
+            {
+                rewardedAd.Destroy();
+                rewardedAd = null;
+            }
+
+            Debug.Log("Loading the rewarded ad.");
+
+            // create our request used to load the ad.
+            var adRequest = new AdRequest();
+
+            // send the request to load the ad.
+            RewardedAd.Load(adUnitId, adRequest,
+                (RewardedAd ad, LoadAdError error) =>
+                {
+                    // if error is not null, the load request failed.
+                    if (error != null || ad == null)
+                    {
+                        Debug.LogError("Rewarded ad failed to load an ad " +
+                                       "with error : " + error);
+                        HandleRewardedAdFailedToShow();
+                        return;
+                    }
+
+                    Debug.Log("Rewarded ad loaded with response : "
+                              + ad.GetResponseInfo());
+
+                    rewardedAd = ad;
+                });
         }
 
-        public void HandleRewardedAdFailedToShow(object sender, AdErrorEventArgs args)
+        public void HandleRewardedAdFailedToShow()
         {
             OnRewardFinished();
             LoadRewardAds();
@@ -197,15 +262,38 @@ namespace Cocktailor
             string adUnitId = "unexpected_platform";
 #endif
 
-            interstitial = new InterstitialAd(adUnitId);
-            interstitial.OnAdFailedToShow += HandleInterstitialFailedToShow;
-            interstitial.OnAdClosed += HandleOnAdClosed;
+            // Clean up the old ad before loading a new one.
+            if (interstitialAd != null)
+            {
+                interstitialAd.Destroy();
+                interstitialAd = null;
+            }
+            
+            
+            Debug.Log("Loading the interstitial ad.");
 
-            var request = new AdRequest.Builder().Build();
-            interstitial.LoadAd(request);
+            // create our request used to load the ad.
+            var adRequest = new AdRequest();
+
+            // send the request to load the ad.
+            InterstitialAd.Load(adUnitId, adRequest,
+                (InterstitialAd ad, LoadAdError error) =>
+                {
+                    // if error is not null, the load request failed.
+                    if (error != null || ad == null)
+                    {
+                        HandleInterstitialFailedToShow();
+                        return;
+                    }
+
+                    Debug.Log("Interstitial ad loaded with response : "
+                              + ad.GetResponseInfo());
+
+                    interstitialAd = ad;
+                });
         }
 
-        private void HandleInterstitialFailedToShow(object sender, AdErrorEventArgs args)
+        private void HandleInterstitialFailedToShow()
         {
             OnRewardFinished();
             LoadInterstitialAd();
