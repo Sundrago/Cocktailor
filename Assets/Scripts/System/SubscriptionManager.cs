@@ -184,8 +184,8 @@ namespace Cocktailor
             buttonText[0].text = storeController.products.WithID(ItemType.Weekly.ToString()).metadata.localizedPriceString + "/주";
             buttonText[1].text = storeController.products.WithID(ItemType.Monthly.ToString()).metadata.localizedPriceString + "/월";
             int discountRate = 100-Mathf.RoundToInt(
-                (float)(storeController.products.WithID(ItemType.Weekly.ToString()).metadata.localizedPrice * 4 /
-                        storeController.products.WithID(ItemType.Monthly.ToString()).metadata.localizedPrice) * 100f); 
+                (float)((float)storeController.products.WithID(ItemType.Weekly.ToString()).metadata.localizedPrice * 4f /
+                        (float)storeController.products.WithID(ItemType.Monthly.ToString()).metadata.localizedPrice) * 100f); 
             buttonText[2].text = "(첫 3일 무료 체험. 약 "+discountRate+"%할인)";
             buttonText[3].text = storeController.products.WithID(ItemType.Pro.ToString()).metadata.localizedPriceString + "/무기한";
         }
